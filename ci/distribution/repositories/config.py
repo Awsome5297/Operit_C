@@ -3,7 +3,7 @@ from __future__ import annotations
 
 SOURCE_REPOSITORY = "Awsome5297/Operit_C"
 UPDATE_REPOSITORY = "Awsome5297/Operit_C-updates"
-RESOURCE_REPOSITORY = "Awsome5297/Operit_C-resources"
+RESOURCE_REPOSITORY = "3316891527/Operit-Kong-resources"
 
 
 def release_repositories(version: str) -> tuple[str, ...]:
