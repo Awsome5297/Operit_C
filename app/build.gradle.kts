@@ -23,7 +23,7 @@ plugins {
 
 // 此独立发行分支在 GitHub Actions 中生成固定签名的 Kong 共存包。
 val ciPreviewRelease = providers.environmentVariable("GITHUB_ACTIONS").orNull == "true"
-val ciDistributionCertificateSha256 = "5E01FFF4DD01A44BAB8318BE35107AE39C60A1261CFCE33003EA3528727EA799"
+val ciDistributionCertificateSha256 = "02D3ADB3BB7B5FEAD589ECA659D5154F36FA6E5A1E9A9FCA55E0460A82191AF3"
 
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
@@ -527,8 +527,6 @@ android {
                 "proguard-rules.pro"
             )
             if (ciPreviewRelease) {
-                // 包名和固定签名共同维持独立发行版后续覆盖安装的身份。
-                applicationIdSuffix = ".kong"
                 signingConfig = signingConfigs.getByName("ciDistribution")
             } else if (releaseSigningConfig != null) {
                 signingConfig = releaseSigningConfig
@@ -558,8 +556,10 @@ android {
             if (releaseSigningConfig != null) {
                 signingConfig = releaseSigningConfig
             }
+            applicationIdSuffix = ".nightly"
             matchingFallbacks += listOf("release")
             signingConfig = signingConfigs.getByName("debug")
+            resValue("string", "app_name", "Operit C Nightly")
         }
     }
     applicationVariants.all {
@@ -673,12 +673,12 @@ tasks.matching { it.name == "assembleNightly" }.configureEach {
 if (ciPreviewRelease) {
     val verifyCiPreviewRelease by tasks.registering {
         group = "verification"
-        description = "Verifies the signed Kong coexist APK."
+        description = "Verifies the signed release APK."
         dependsOn("assembleRelease")
         doLast {
             val apkFile = layout.buildDirectory.file("outputs/apk/release/app-kong.apk").get().asFile
             require(apkFile.isFile && apkFile.length() > 0) {
-                "Kong coexist APK was not produced: ${apkFile.path}"
+                "Release APK was not produced: ${apkFile.path}"
             }
             val sdkDirectory = File(requiredLocalProperty("sdk.dir"))
             val apksigner = sdkDirectory.resolve("build-tools/35.0.0/apksigner")
@@ -690,7 +690,7 @@ if (ciPreviewRelease) {
             val certificateSha256 = Regex("""Signer #1 certificate SHA-256 digest: ([0-9a-fA-F]+)""")
                 .find(signingReport)?.groupValues?.get(1)
             require(certificateSha256 != null && certificateSha256.equals(ciDistributionCertificateSha256, ignoreCase = true)) {
-                "Kong coexist APK has an unexpected signing certificate"
+                "Release APK has an unexpected signing certificate"
             }
             // 校验实际 APK 的包名和调试标记，避免把调试产物当作发行包上传。
             val aapt2 = sdkDirectory.resolve("build-tools/35.0.0/aapt2")
@@ -699,14 +699,14 @@ if (ciPreviewRelease) {
                 commandLine(aapt2.path, "dump", "badging", apkFile.path)
             }.standardOutput.asText.get()
             require(badging.lineSequence().any {
-                it.startsWith("package: name='com.ai.assistance.operit.c.kong' ")
+                it.startsWith("package: name='com.ai.assistance.operit.c' ")
             }) {
-                "Kong coexist APK has an unexpected package name"
+                "Release APK has an unexpected package name"
             }
             require(badging.lineSequence().none {
                 it.startsWith("application-debuggable")
             }) {
-                "Kong coexist APK must not be debuggable"
+                "Release APK must not be debuggable"
             }
             val badgingReport = layout.buildDirectory.file("reports/kong-preview/apk-badging.txt").get().asFile
             badgingReport.parentFile.mkdirs()

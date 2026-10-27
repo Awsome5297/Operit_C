@@ -1,9 +1,9 @@
 """源码与发行仓库的固定分工。"""
 from __future__ import annotations
 
-SOURCE_REPOSITORY = "3316891527/Operit"
-UPDATE_REPOSITORY = "3316891527/Operit-Kong-patch"
-RESOURCE_REPOSITORY = "3316891527/Operit-Kong-resources"
+SOURCE_REPOSITORY = "Awsome5297/Operit_C"
+UPDATE_REPOSITORY = "Awsome5297/Operit_C-updates"
+RESOURCE_REPOSITORY = "Awsome5297/Operit_C-resources"
 
 
 def release_repositories(version: str) -> tuple[str, ...]:

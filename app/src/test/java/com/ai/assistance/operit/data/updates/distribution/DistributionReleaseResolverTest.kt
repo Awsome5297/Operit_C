@@ -15,7 +15,7 @@ class DistributionReleaseResolverTest {
         assertTrue(status is UpdateStatus.PatchAvailable)
         status as UpdateStatus.PatchAvailable
         assertEquals("1.12.2+2", status.newVersion)
-        assertTrue(status.patchUrl.contains("3316891527/Operit-Kong-patch/releases/"))
+        assertTrue(status.patchUrl.contains("Awsome5297/Operit_C-updates/releases/"))
         assertTrue(requireNotNull(status.fullApkUrl).endsWith("app-kong.apk"))
     }
 
@@ -138,8 +138,8 @@ class DistributionReleaseResolverTest {
 
     @Test
     fun repositoryIsIndependentDistributionFork() {
-        assertEquals("3316891527", DistributionReleaseResolver.OWNER)
-        assertEquals("Operit-Kong-patch", DistributionReleaseResolver.REPOSITORY)
+        assertEquals("Awsome5297", DistributionReleaseResolver.OWNER)
+        assertEquals("Operit_C-updates", DistributionReleaseResolver.REPOSITORY)
     }
 
     private fun release(version: String, patch: Boolean = false): GitHubRelease = GitHubRelease(
@@ -147,7 +147,7 @@ class DistributionReleaseResolverTest {
         tag_name = "v$version",
         name = version,
         body = "版本说明",
-        html_url = "https://github.com/3316891527/Operit-Kong-patch/releases/tag/v$version",
+        html_url = "https://github.com/Awsome5297/Operit_C-updates/releases/tag/v$version",
         created_at = "2026-10-15T00:00:00Z",
         assets = buildList {
             add(asset("app-kong.apk"))
@@ -160,7 +160,7 @@ class DistributionReleaseResolverTest {
 
     private fun asset(name: String): GitHubReleaseAsset = GitHubReleaseAsset(
         id = 1L, name = name,
-        browser_download_url = "https://github.com/3316891527/Operit-Kong-patch/releases/download/v1.12.2+2/$name",
+        browser_download_url = "https://github.com/Awsome5297/Operit_C-updates/releases/download/v1.12.2+2/$name",
         size = 1024L, download_count = 0, content_type = "application/octet-stream"
     )
 }

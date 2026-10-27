@@ -7,8 +7,8 @@ import org.json.JSONObject
 
 /** 独立发行版使用自身发布源，带 + 的补丁版本由 Beta 计划开关控制。 */
 internal object DistributionReleaseResolver {
-    const val OWNER = "3316891527"
-    const val REPOSITORY = "Operit-Kong-patch"
+    const val OWNER = "Awsome5297"
+    const val REPOSITORY = "Operit_C-updates"
     const val APK_NAME = "app-kong.apk"
     private val versionPattern = Regex("""^\d+\.\d+\.\d+(?:\+\d+)?$""")
 

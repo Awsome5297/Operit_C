@@ -1057,7 +1057,7 @@
     <string name="language_changed">语言已更改，正在重启应用</string>
     <!-- 用户协议界面 -->
     <string name="agreement_title">用户协议</string>
-    <string name="agreement_document_title">Operit C Kong 用户协议与隐私政策</string>
+    <string name="agreement_document_title">Operit C 用户协议与隐私政策</string>
 
     <string name="market_agreement_title">插件市场使用协议与行为规范</string>
     <string name="market_agreement_version">市场协议版本：%1$s</string>
@@ -7319,15 +7319,15 @@
     <string name="chat_summarize_generation_failed">总结生成失败: %1$s</string>
 
     <!-- AIForegroundService (新增) -->
-    <string name="service_operit_running">Operit C Kong 正在运行</string>
+    <string name="service_operit_running">Operit C 正在运行</string>
     <string name="service_chat_complete_reminder">对话完成提醒</string>
     <string name="service_chat_complete_reminder_sound">对话完成提醒（提示音）</string>
     <string name="service_chat_complete_reminder_vibration">对话完成提醒（震动）</string>
     <string name="service_chat_complete_reminder_sound_vibration">对话完成提醒（提示音和震动）</string>
-    <string name="service_keep_background">保持 Operit C Kong 在后台运行。</string>
+    <string name="service_keep_background">保持 Operit C 在后台运行。</string>
     <string name="service_notify_when_complete">对话完成后提醒你。</string>
-    <string name="service_running_wake_pause">Operit C Kong 正在运行（唤醒暂停）</string>
-    <string name="service_running_wake_listening">Operit C Kong 正在运行（唤醒监听中）</string>
+    <string name="service_running_wake_pause">Operit C 正在运行（唤醒暂停）</string>
+    <string name="service_running_wake_listening">Operit C 正在运行（唤醒监听中）</string>
     <string name="service_running_stats">运行对话 %1$d · 调用工具 %2$d</string>
     <string name="service_running_http_listening">外部 HTTP 正在监听端口 %1$d</string>
     <string name="service_running_with_http">%1$s · 外部 HTTP %2$d</string>

@@ -39,8 +39,8 @@ data class GitHubUser(
 class GitHubAuthPreferences(private val context: Context) {
 
     companion object {
-        const val GITHUB_SCOPE = "notifications,public_repo,user:email,read:user"
-        private const val REQUIRED_AUTH_VERSION = 3
+        const val GITHUB_SCOPE = "notifications,repo,user:email,read:user"
+        private const val REQUIRED_AUTH_VERSION = 4
         
         // 认证相关键
         private val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")

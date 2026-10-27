@@ -6905,15 +6905,15 @@
     <string name="chat_summarize_generation_failed">Eșecul generării rezumatului: %1$s</string>
 
     <!-- AIForegroundService (新增) -->
-    <string name="service_operit_running">Operit C Kong În curs de execuție</string>
+    <string name="service_operit_running">Operit C În curs de execuție</string>
     <string name="service_chat_complete_reminder">Notificare privind finalizarea conversației</string>
     <string name="service_chat_complete_reminder_sound">Notificare privind finalizarea conversației (semnal sonor)</string>
     <string name="service_chat_complete_reminder_vibration">Notificare privind finalizarea conversației (vibrație)</string>
     <string name="service_chat_complete_reminder_sound_vibration">Notificare la finalizarea conversației (sunet și vibrație)</string>
-    <string name="service_keep_background">Menținere Operit C Kong Se execută în fundal.</string>
+    <string name="service_keep_background">Menținere Operit C Se execută în fundal.</string>
     <string name="service_notify_when_complete">Te va avertiza după finalizarea conversației.</string>
-    <string name="service_running_wake_pause">Operit C Kong În curs de execuție (în așteptare)</string>
-    <string name="service_running_wake_listening">Operit C Kong În execuție (în așteptare de activare)</string>
+    <string name="service_running_wake_pause">Operit C În curs de execuție (în așteptare)</string>
+    <string name="service_running_wake_listening">Operit C În execuție (în așteptare de activare)</string>
     <string name="service_running_stats">Fereastra de dialog de execuție %1$d · Instrumente de apelare %2$d</string>
     <string name="service_running_http_listening">Extern HTTP Se monitorizează portul %1$d</string>
     <string name="service_running_with_http">%1$s · Extern HTTP %2$d</string>
@@ -8707,7 +8707,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">Creștere maximă în timpul funcționării</string>
     <string name="pkg_runtime_monitor_last_heap_delta">Increment de memorie recent</string>
     <string name="pkg_runtime_monitor_last_pss_delta">ultimul increment de vârf</string>
-    <string name="agreement_document_title">Operit C Kong Acordul utilizatorului și Politica de confidențialitate</string>
+    <string name="agreement_document_title">Operit C Acordul utilizatorului și Politica de confidențialitate</string>
     <string name="system_permission_notifications">Notificare</string>
     <string name="system_permission_app_list">Lista aplicațiilor</string>
     <string name="system_permission_usage_access">Statistici de utilizare a aplicației</string>

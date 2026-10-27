@@ -1,6 +1,8 @@
 # 独立发行的 Release 与增量更新
 
-客户端统一查询 `3316891527/Operit-Kong-patch` 的 GitHub Releases。该仓库保存所有正式版和补丁版；`3316891527/Operit` 保留源码、源码版本标签及不带加号的正式版 Release；固定离线资源位于 `3316891527/Operit-Kong-resources`。更新检查、补丁生成和 APK 还原仍在源码仓库实现。
+客户端统一查询 `Awsome5297/Operit_C-updates` 的 GitHub Releases。该仓库保存所有正式版和补丁版；`Awsome5297/Operit_C` 保留源码、源码版本标签及不带加号的正式版 Release；启用固定离线资源时位于 `Awsome5297/Operit_C-resources`。更新检查、补丁生成和 APK 还原仍在源码仓库实现。
+
+`Operit_C-updates` 当前为私有仓库。客户端必须使用已登录且对该仓库有读取权限的 GitHub 账号，OAuth scope 需包含 `repo`；未登录用户无法检查更新。发布前更新仓库必须已初始化默认分支（至少一个 README 提交），否则权限预检会失败。
 
 `1.12.2+15` 已完成发行分仓，本次发行版本为 `1.12.2+16`、versionCode 72。沿用统一更新仓库与现有签名，使用 `v1.12.2+15` 的完整 APK 生成增量包。仓库创建、历史迁移、权限和完整回归见[分仓计划](../../../docs/TODO/chore/release-repositories/index.md)。
 
@@ -8,15 +10,15 @@
 
 自动检查与手动检查共用 Beta 计划开关：关闭时仅选择 `x.y.z` 正式版，开启后也选择 `x.y.z+n` 补丁版。先过滤渠道，再比较数字版本。退出 Beta 不降级已有补丁版，仍可安装更高基础版本的正式版。开关变化后清除旧检查结果。
 
-首次切换通过完整 APK 安装。包名保持 `com.ai.assistance.operit.c.kong`，沿用已有固定签名，versionCode 递增。仅创建标签或上传 Actions artifact 不会形成可发现的应用更新。完整 APK 必须随 Release 保存，供新用户安装和后续生成补丁。
+首次切换通过完整 APK 安装。包名保持 `com.ai.assistance.operit.c`，使用你的固定签名，versionCode 递增。仅创建标签或上传 Actions artifact 不会形成可发现的应用更新。完整 APK 必须随 Release 保存，供新用户安装和后续生成补丁。
 
 ## 发布方法
 
 源码仓库的 Android Build 工作流选择 `main`、任务 `:app:verifyCiPreviewRelease`，勾选 `publish_release`，填写非空 Markdown 更新说明和可选 `previous_tag`。本次使用已发布的 `v1.12.2+15` 为基础；留空时选择补丁仓库中同一基础版本且低于目标的最新已公开 APK。普通构建保持 `publish_release=false`。
 
-工作流需要源码仓库的 Actions secret `OPERIT_DISTRIBUTION_TOKEN`，授予源码、补丁、资源仓库的 Contents 写入权限及源码仓库 Actions 读取权限。内置 `github.token` 不能向另外两个仓库发布。权限预检在签名构建前执行；缺少配置时明确失败。既有发行仓库和专用 secret 继续使用；本次保持 `complete_repository_migration=false`，不重复执行历史迁移清理。
+工作流需要源码仓库的 Actions secret `OPERIT_DISTRIBUTION_TOKEN`，授予源码仓库和更新仓库的 Contents 写入权限及源码仓库 Actions 读取权限；启用离线资源发布时还需资源仓库的 Contents 写入权限。内置 `github.token` 不能向另外两个仓库发布。权限预检在签名构建前执行；缺少配置时明确失败。既有发行仓库和专用 secret 继续使用；本次保持 `complete_repository_migration=false`，不重复执行历史迁移清理。
 
-发布脚本读取 APK 的真实版本，检查 Kong 包名、固定证书和递增内部版本号。所有应用版本发往补丁仓库；无加号正式版还在主仓库发布相同文件。全部目的地先完成草稿上传，再公开，统一更新仓库最后公开。已有 Release 不覆盖。
+发布脚本读取 APK 的真实版本，检查 发行包名、固定证书和递增内部版本号。所有应用版本发往补丁仓库；无加号正式版还在主仓库发布相同文件。全部目的地先完成草稿上传，再公开，统一更新仓库最后公开。已有 Release 不覆盖。
 
 主仓库版本标签固定为构建提交，已有标签禁止移动。发行专用仓库的标签指向自身文档提交，说明和摘要另附对应主仓库提交及源码归档链接，避免把发行仓库自动生成的 Source code 归档误当成应用源码。
 
@@ -28,7 +30,7 @@
 python3 ci/distribution/updates/publish_release.py \
   --apk app/build/outputs/apk/release/app-kong.apk \
   --build-tools "$ANDROID_HOME/build-tools/35.0.0" \
-  --repository 3316891527/Operit \
+  --repository Awsome5297/Operit_C \
   --commit "$GITHUB_SHA" \
   --notes '内部发行准备' \
   --prepare-only

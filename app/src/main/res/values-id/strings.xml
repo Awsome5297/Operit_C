@@ -5859,15 +5859,15 @@
 
     <string name="chat_summarize_failed_no_valid_summary">Ringkasan gagal: Tidak dapat menghasilkan ringkasan yang valid</string>
     <string name="chat_summarize_generation_failed">Pembuatan ringkasan gagal: %1$s</string>
-    <string name="service_operit_running">Operit C Kong sedang berjalan</string>
+    <string name="service_operit_running">Operit C sedang berjalan</string>
     <string name="service_chat_complete_reminder">Pengingat percakapan selesai</string>
     <string name="service_chat_complete_reminder_sound">Pengingat percakapan selesai (suara)</string>
     <string name="service_chat_complete_reminder_vibration">Pengingat percakapan selesai (getaran)</string>
     <string name="service_chat_complete_reminder_sound_vibration">Pengingat percakapan selesai (suara dan getaran)</string>
-    <string name="service_keep_background">Jaga Operit C Kong tetap berjalan di latar belakang.</string>
+    <string name="service_keep_background">Jaga Operit C tetap berjalan di latar belakang.</string>
     <string name="service_notify_when_complete">Ingatkan Anda setelah percakapan selesai.</string>
-    <string name="service_running_wake_pause">Operit C Kong sedang berjalan (bangun dijeda)</string>
-    <string name="service_running_wake_listening">Operit C Kong sedang berjalan (bangun sedang mendengarkan)</string>
+    <string name="service_running_wake_pause">Operit C sedang berjalan (bangun dijeda)</string>
+    <string name="service_running_wake_listening">Operit C sedang berjalan (bangun sedang mendengarkan)</string>
     <string name="service_running_stats">Percakapan berjalan %1$d · Alat dipanggil %2$d</string>
     <string name="service_running_http_listening">HTTP eksternal sedang mendengarkan port %1$d</string>
     <string name="service_running_with_http">%1$s · HTTP eksternal %2$d</string>
@@ -8114,7 +8114,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">Peningkatan puncak selama pengoperasian</string>
     <string name="pkg_runtime_monitor_last_heap_delta">Peningkatan memori terkini</string>
     <string name="pkg_runtime_monitor_last_pss_delta">kenaikan puncak terbaru</string>
-    <string name="agreement_document_title">Operit C Kong Perjanjian Pengguna dan Kebijakan Privasi</string>
+    <string name="agreement_document_title">Operit C Perjanjian Pengguna dan Kebijakan Privasi</string>
     <string name="system_permission_notifications">Pemberitahuan</string>
     <string name="system_permission_app_list">Daftar aplikasi</string>
     <string name="system_permission_usage_access">Statistik penggunaan aplikasi</string>
