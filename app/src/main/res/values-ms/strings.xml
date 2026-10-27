@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Operit AI</string>
+    <string name="app_name">Operit C</string>
     <string name="accessibility_service_description">Digunakan untuk mendapatkan hierarki UI, menyediakan keupayaan analisis antara muka yang lebih pantas untuk pembantu AI, tidak akan mengumpul atau menyimpan sebarang maklumat peribadi.</string>
     <string name="model_selector_title">Pilih Konfigurasi Model</string>
     <string name="model_selector_toggle">Tunjukkan Pemilih Model</string>
@@ -429,9 +429,9 @@
     <string name="install_termux_failed">Pemasangan Termux gagal</string>
     <string name="open_termux">Buka Termux</string>
     <string name="termux_setup_guide">Panduan penyediaan Termux</string>
-    <string name="about_title">Perihal Operit AI</string>
+    <string name="about_title">Perihal Operit C</string>
     <string name="about_version">Versi: %1$s</string>
-    <string name="about_description">Operit AI ialah aplikasi pembantu pintar yang membantu pengguna menggunakan peranti dengan lebih cekap, menyediakan analisis antara muka, perbualan sembang dan fungsi lain.</string>
+    <string name="about_description">Operit C ialah aplikasi pembantu pintar yang membantu pengguna menggunakan peranti dengan lebih cekap, menyediakan analisis antara muka, perbualan sembang dan fungsi lain.</string>
     <string name="about_developer">Pembangun: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">Hubungi kami: aaswordsman@foxmail.com</string>
     <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
@@ -597,7 +597,7 @@
     <string name="copy_path">Salin laluan</string>
     <string name="path_copied_to_clipboard">Laluan telah disalin ke papan keratan</string>
     <string name="open_file_manager">Buka pengurus fail</string>
-    <string name="navigate_to_external_files">Sila navigasi ke direktori Android/data/com.ai.assistance.operit/files/packages</string>
+    <string name="navigate_to_external_files">Sila navigasi ke direktori Android/data/com.ai.assistance.operit.c/files/packages</string>
     <string name="package_js_only">Hanya fail JavaScript(.js) dan ToolPkg(.toolpkg) disokong</string>
     <string name="pkg_toolpkg_subpackages">Subpakej ToolPkg</string>
     <string name="pkg_toolpkg_version">Versi: %1$s</string>
@@ -4094,7 +4094,7 @@
     <string name="default_assistant_guide_step1_title">Tetapkan sebagai Pembantu Lalai</string>
     <string name="default_assistant_guide_step1_desc">Tetapkan Operit sebagai aplikasi pembantu digital lalai sistem</string>
     <string name="default_assistant_guide_step1_detail1">• Buka Tetapan Sistem → Aplikasi → Aplikasi Lalai → Aplikasi Pembantu Digital</string>
-    <string name="default_assistant_guide_step1_detail2">• Cari dan pilih "Operit AI" dalam senarai aplikasi pembantu</string>
+    <string name="default_assistant_guide_step1_detail2">• Cari dan pilih "Operit C" dalam senarai aplikasi pembantu</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12+: Tetapan → Aplikasi → Aplikasi Lalai → Aplikasi Pembantu Digital → Aplikasi Pembantu Digital Lalai</string>
     <string name="default_assistant_guide_open_settings">Buka Tetapan Pembantu</string>
     <string name="default_assistant_guide_open_gesture_settings">Buka Tetapan Isyarat</string>
@@ -5663,7 +5663,7 @@
     <string name="html_export_updated">Dikemas kini</string>
     <string name="html_export_group">Kumpulan</string>
     <string name="html_export_message_count">Bilangan Mesej</string>
-    <string name="html_export_footer">Dieksport dari Operit AI Assistant</string>
+    <string name="html_export_footer">Dieksport dari Operit C Assistant</string>
     <string name="mnn_no_cache_data">Tiada data cache</string>
     <string name="mnn_response_empty">Badan respons kosong</string>
     <string name="mnn_fetch_repo_files_failed">Gagal mendapatkan senarai fail repositori: %1$s</string>
@@ -5778,15 +5778,15 @@
     <string name="chat_ai_service_unavailable_summarize">Perkhidmatan AI tidak tersedia, tidak dapat membuat ringkasan</string>
     <string name="chat_summarize_failed_no_valid_summary">Gagal membuat ringkasan: Tidak dapat menghasilkan ringkasan yang sah</string>
     <string name="chat_summarize_generation_failed">Gagal menghasilkan ringkasan: %1$s</string>
-    <string name="service_operit_running">Operit Kong sedang berjalan</string>
+    <string name="service_operit_running">Operit C Kong sedang berjalan</string>
     <string name="service_chat_complete_reminder">Peringatan selesai perbualan</string>
     <string name="service_chat_complete_reminder_sound">Peringatan selesai perbualan (bunyi)</string>
     <string name="service_chat_complete_reminder_vibration">Peringatan selesai perbualan (getaran)</string>
     <string name="service_chat_complete_reminder_sound_vibration">Peringatan selesai perbualan (bunyi dan getaran)</string>
-    <string name="service_keep_background">Kekalkan Operit Kong berjalan di latar belakang.</string>
+    <string name="service_keep_background">Kekalkan Operit C Kong berjalan di latar belakang.</string>
     <string name="service_notify_when_complete">Beritahu anda apabila perbualan selesai.</string>
-    <string name="service_running_wake_pause">Operit Kong sedang berjalan (bangun dijeda)</string>
-    <string name="service_running_wake_listening">Operit Kong sedang berjalan (bangun sedang mendengar)</string>
+    <string name="service_running_wake_pause">Operit C Kong sedang berjalan (bangun dijeda)</string>
+    <string name="service_running_wake_listening">Operit C Kong sedang berjalan (bangun sedang mendengar)</string>
     <string name="service_running_stats">Berjalan perbualan %1$d · Panggilan alat %2$d</string>
     <string name="service_running_http_listening">HTTP luaran sedang mendengar port %1$d</string>
     <string name="service_running_with_http">%1$s · HTTP luaran %2$d</string>
@@ -6421,7 +6421,7 @@
     <string name="chat_message_token_speed_compact">Speed %1$s tokens/s</string>
     <string name="software_identity_title">Identiti Perisian</string>
     <string name="software_identity_description">Tukar identiti perisian yang dipaparkan di bahagian atas bar sisi.</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">Lingshu AI</string>
     <string name="chat_auto_update_memory_failed">Gagal mengemas kini memori secara automatik: %1$s</string>
 
@@ -7939,7 +7939,7 @@
     <string name="display_behavior_fps">Tunjukkan kadar bingkai</string>
     <string name="display_behavior_fps_desc">Tunjukkan kadar bingkai masa nyata pada skrin.</string>
     <string name="display_behavior_identity">Nama aplikasi</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">Lingshu AI</string>
     <string name="display_behavior_identity_desc">Hanya menukar nama aplikasi di bahagian atas bar sisi.</string>
     <string name="display_behavior_interface_footer">Warna, fon, avatar dan rupa mesej masih ditetapkan dalam Tema.</string>
@@ -8113,7 +8113,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">Kenaikan puncak semasa operasi</string>
     <string name="pkg_runtime_monitor_last_heap_delta">Peningkatan ingatan terkini</string>
     <string name="pkg_runtime_monitor_last_pss_delta">kenaikan puncak terkini</string>
-    <string name="agreement_document_title">Perjanjian Pengguna dan Dasar Privasi Operit Kong</string>
+    <string name="agreement_document_title">Perjanjian Pengguna dan Dasar Privasi Operit C Kong</string>
     <string name="system_permission_notifications">Pemberitahuan</string>
     <string name="system_permission_app_list">Senarai permohonan</string>
     <string name="system_permission_usage_access">Statistik penggunaan apl</string>

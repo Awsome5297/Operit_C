@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name">Operar IA</string>
+<resources><string name="app_name">Operit C</string>
     <string name="accessibility_service_description">Ele é usado para obter a hierarquia da IU e fornecer recursos de análise de interface mais rápidos para o assistente de IA. Nenhuma informação pessoal será coletada ou armazenada.</string>
     <string name="model_selector_title">Selecione a configuração do modelo</string>
     <string name="model_selector_toggle">Mostrar seletor de modelo</string>
@@ -417,9 +417,9 @@
     <string name="install_termux_failed">A instalação do Termux falhou</string>
     <string name="open_termux">Abra o Termux</string>
     <string name="termux_setup_guide">Assistente de configuração Termux</string>
-    <string name="about_title">Sobre a Operit AI</string>
+    <string name="about_title">Sobre a Operit C</string>
     <string name="about_version">Versão: %1$s</string>
-    <string name="about_description">Operit AI é um aplicativo assistente inteligente que pode ajudar os usuários a usar os dispositivos com mais eficiência, fornecendo análise de interface, diálogo de chat e outras funções.</string>
+    <string name="about_description">Operit C é um aplicativo assistente inteligente que pode ajudar os usuários a usar os dispositivos com mais eficiência, fornecendo análise de interface, diálogo de chat e outras funções.</string>
     <string name="about_developer">Desenvolvedor: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">Contate-nos: aaswordsman@foxmail.com</string>
     <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
@@ -777,7 +777,7 @@
     <string name="copy_path">copiar caminho</string>
     <string name="path_copied_to_clipboard">Caminho copiado para a área de transferência</string>
     <string name="open_file_manager">Abra o gerenciador de arquivos</string>
-    <string name="navigate_to_external_files">Navegue até o diretório Android/data/com.ai.assistance.operit/files/packages</string>
+    <string name="navigate_to_external_files">Navegue até o diretório Android/data/com.ai.assistance.operit.c/files/packages</string>
     <string name="package_js_only">Somente arquivos JavaScript(.js) e ToolPkg(.toolpkg) são suportados</string>
     <string name="pkg_toolpkg_subpackages">Subpacote ToolPkg</string>
     <string name="pkg_toolpkg_version">Versão: %1$s</string>
@@ -3738,7 +3738,7 @@
     <string name="default_assistant_guide_step1_title">Definir como assistente padrão</string>
     <string name="default_assistant_guide_step1_desc">Defina o Operit como o aplicativo de assistente digital padrão do seu sistema</string>
     <string name="default_assistant_guide_step1_detail1">• Abra Configurações do sistema → Aplicativos → Aplicativos padrão → Aplicativo Assistente Digital</string>
-    <string name="default_assistant_guide_step1_detail2">• Encontre e selecione "Operit AI" na lista de aplicativos assistentes</string>
+    <string name="default_assistant_guide_step1_detail2">• Encontre e selecione "Operit C" na lista de aplicativos assistentes</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12+: Configurações → Aplicativos → Aplicativos padrão → Aplicativo Digital Assistant → Aplicativo Digital Assistant padrão</string>
     <string name="default_assistant_guide_open_settings">Abra as configurações do assistente</string>
     <string name="default_assistant_guide_open_gesture_settings">Abrir configurações de gestos</string>
@@ -5524,15 +5524,15 @@
     <string name="chat_ai_service_unavailable_summarize">O serviço de IA está indisponível e não pode ser resumido</string>
     <string name="chat_summarize_failed_no_valid_summary">Falha no resumo: falha ao gerar um resumo válido</string>
     <string name="chat_summarize_generation_failed">Falha na geração do resumo: %1$s</string>
-    <string name="service_operit_running">Operit Kong está em execução</string>
+    <string name="service_operit_running">Operit C Kong está em execução</string>
     <string name="service_chat_complete_reminder">Lembrete de conclusão de conversa</string>
     <string name="service_chat_complete_reminder_sound">Lembrete de conclusão de conversa (som de bipe)</string>
     <string name="service_chat_complete_reminder_vibration">Lembrete de conclusão de conversa (vibração)</string>
     <string name="service_chat_complete_reminder_sound_vibration">Lembrete de conclusão de conversa (bipe e vibração)</string>
-    <string name="service_keep_background">Mantenha o Operit Kong rodando em segundo plano.</string>
+    <string name="service_keep_background">Mantenha o Operit C Kong rodando em segundo plano.</string>
     <string name="service_notify_when_complete">Lembrá-lo quando a conversa for concluída.</string>
-    <string name="service_running_wake_pause">Operit Kong está em execução (pausa de ativação)</string>
-    <string name="service_running_wake_listening">Operit Kong está rodando (acordando e ouvindo)</string>
+    <string name="service_running_wake_pause">Operit C Kong está em execução (pausa de ativação)</string>
+    <string name="service_running_wake_listening">Operit C Kong está rodando (acordando e ouvindo)</string>
     <string name="service_running_stats">Executar sessão %1$d · Invocar ferramenta %2$d</string>
     <string name="service_running_http_listening">Escuta HTTP externa na porta %1$d</string>
     <string name="service_running_with_http">%1$s · HTTP externo %2$d</string>
@@ -5573,7 +5573,7 @@
     <string name="html_export_updated">renovar</string>
     <string name="html_export_group">Grupo</string>
     <string name="html_export_message_count">Número de mensagens</string>
-    <string name="html_export_footer">Exportado do Operit AI Assistant</string>
+    <string name="html_export_footer">Exportado do Operit C Assistant</string>
     <string name="mnn_no_cache_data">Nenhum dado em cache</string>
     <string name="mnn_response_empty">O corpo da resposta está vazio</string>
     <string name="mnn_fetch_repo_files_failed">Falha ao obter a lista de arquivos do warehouse: %1$s</string>
@@ -6257,7 +6257,7 @@
     <string name="chat_message_token_speed_compact">Speed %1$s tokens/s</string>
     <string name="software_identity_title">Identidade do software</string>
     <string name="software_identity_description">Altera a identidade do software exibida no topo da barra lateral.</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">Lingshu AI</string>
     <string name="hide_runtime_task_view">Ocultar visualização de tarefa em execução</string>
     <string name="hide_runtime_task_view_description">Quando a IA está processando mensagens ou executando ferramentas, oculta o cartão de tarefa do aplicativo da lista de tarefas recentes do sistema, evitando que seja fechado acidentalmente ao deslizar.</string>
@@ -7780,7 +7780,7 @@
     <string name="display_behavior_fps">Mostrar taxa de quadros</string>
     <string name="display_behavior_fps_desc">Mostre na tela a taxa de quadros em tempo real.</string>
     <string name="display_behavior_identity">Nome do aplicativo</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">Lingshu AI</string>
     <string name="display_behavior_identity_desc">Altere apenas o nome mostrado no topo da barra lateral.</string>
     <string name="display_behavior_interface_footer">Cores, fontes, avatares e aparência das mensagens continuam em Tema.</string>
@@ -7954,7 +7954,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">Incremento de pico durante a operação</string>
     <string name="pkg_runtime_monitor_last_heap_delta">Incremento de memória recente</string>
     <string name="pkg_runtime_monitor_last_pss_delta">incremento de pico mais recente</string>
-    <string name="agreement_document_title">Acordo do usuário e política de privacidade Operit Kong</string>
+    <string name="agreement_document_title">Acordo do usuário e política de privacidade Operit C Kong</string>
     <string name="system_permission_notifications">Notificação</string>
     <string name="system_permission_app_list">Lista de aplicativos</string>
     <string name="system_permission_usage_access">Estatísticas de uso de aplicativos</string>

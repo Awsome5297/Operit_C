@@ -19,7 +19,7 @@ from repositories.config import SOURCE_REPOSITORY, UPDATE_REPOSITORY, release_re
 
 REPOSITORY = SOURCE_REPOSITORY
 APK_NAME = "app-kong.apk"
-PACKAGE_NAME = "com.ai.assistance.operit.kong"
+PACKAGE_NAME = "com.ai.assistance.operit.c.kong"
 CERTIFICATE_SHA256 = "5E01FFF4DD01A44BAB8318BE35107AE39C60A1261CFCE33003EA3528727EA799"
 VERSION_PATTERN = re.compile(r"^v?(\d+)\.(\d+)\.(\d+)(?:\+(\d+))?$")
 

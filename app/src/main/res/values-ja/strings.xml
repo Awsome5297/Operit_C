@@ -1013,7 +1013,7 @@
     <string name="display_behavior_fps">フレームレートを表示</string>
     <string name="display_behavior_fps_desc">リアルタイムのフレームレートを画面に表示します。</string>
     <string name="display_behavior_identity">アプリ名</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">Lingshu AI</string>
     <string name="display_behavior_identity_desc">サイドバー上部に表示するアプリ名だけを変更します。</string>
     <string name="display_behavior_interface_footer">色、フォント、アバター、メッセージの外観は引き続き「テーマ」で設定できます。</string>
@@ -1673,7 +1673,7 @@
     <string name="copy_path">パスをコピーする</string>
     <string name="path_copied_to_clipboard">パスがクリップボードにコピーされました</string>
     <string name="open_file_manager">ファイルマネージャーを開く</string>
-    <string name="navigate_to_external_files">Android/data/com.ai.assistance.operit/files/packages ディレクトリに移動してください。</string>
+    <string name="navigate_to_external_files">Android/data/com.ai.assistance.operit.c/files/packages ディレクトリに移動してください。</string>
     <string name="package_js_only">JavaScript(.js) および ToolPkg(.toolpkg) ファイルのみをサポートします</string>
     <string name="package_script_only">HJSON(.hjson)、JavaScript(.js)、および TypeScript(.ts) ファイルのみがサポートされています</string>
     <string name="plugin_toolpkg_only">ToolPkg(.toolpkg) ファイルのみがサポートされています</string>
@@ -1748,7 +1748,7 @@
     <string name="language_settings_desc">アプリケーションインターフェースの表示言語を変更する</string>
     <string name="change_language">言語を変更する</string>
     <string name="agreement_title">ユーザー同意書</string>
-    <string name="agreement_document_title">Operit Kong ユーザー同意書およびプライバシー ポリシー</string>
+    <string name="agreement_document_title">Operit C Kong ユーザー同意書およびプライバシー ポリシー</string>
     <string name="market_agreement_title">プラグイン マーケット使用契約および行動規範</string>
     <string name="market_agreement_version">市場プロトコルのバージョン: %1$s</string>
     <string name="copy">コピー</string>
@@ -3659,7 +3659,7 @@
     <string name="voice_message_collapse_text">閉じる</string>
 
     <!-- 补齐此前缺少的日语译文。 -->
-    <string name="app_name">Operit AI</string>
+    <string name="app_name">Operit C</string>
     <string name="workflow_cron_expression_placeholder">0 0 * * *</string>
     <string name="workflow_trigger_config_json_placeholder">{\"key\": \"value\"}</string>
     <string name="enter">開く</string>
@@ -3931,7 +3931,7 @@
     <string name="enable_navigation_animation">拡張ナビゲーションアニメーション</string>
     <string name="start_with_new_chat">起動時に新しいチャットを開く</string>
     <string name="software_identity_title">アプリ名</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">Lingshu AI</string>
     <string name="image_block">画像</string>
     <string name="video_block">動画</string>
@@ -4036,8 +4036,8 @@
     <string name="install_termux_failed">Termux をインストールできませんでした</string>
     <string name="open_termux">Termux を開く</string>
     <string name="termux_setup_guide">Termux 設定ウィザード</string>
-    <string name="about_title">Operit AI について</string>
-    <string name="about_description">Operit AI は、画面分析やチャットなどの機能を通じて、デバイスをより効率よく使えるよう支援する AI アシスタントアプリです。</string>
+    <string name="about_title">Operit C について</string>
+    <string name="about_description">Operit C は、画面分析やチャットなどの機能を通じて、デバイスをより効率よく使えるよう支援する AI アシスタントアプリです。</string>
     <string name="about_developer">開発者：&lt;a href=\"https://github.com/AAswordman\"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">お問い合わせ：aaswordsman@foxmail.com</string>
     <string name="about_copyright">© 2025 - 2026 Operit. All rights reserved.</string>
@@ -6068,7 +6068,7 @@
     <string name="default_assistant_guide_step1_title">既定のアシスタントに設定</string>
     <string name="default_assistant_guide_step1_desc">Operit をシステムの既定のデジタルアシスタントアプリに設定</string>
     <string name="default_assistant_guide_step1_detail1">• システム設定 → アプリ → デフォルトのアプリ → デジタルアシスタントアプリを開く</string>
-    <string name="default_assistant_guide_step1_detail2">• アシスタントアプリの一覧で「Operit AI」を選択</string>
+    <string name="default_assistant_guide_step1_detail2">• アシスタントアプリの一覧で「Operit C」を選択</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12 以降：設定 → アプリ → デフォルトのアプリ → デジタルアシスタントアプリ → デフォルトのデジタルアシスタントアプリ</string>
     <string name="default_assistant_guide_open_settings">アシスタントの設定を開く</string>
     <string name="default_assistant_guide_open_gesture_settings">ジェスチャー設定を開く</string>
@@ -6090,7 +6090,7 @@
     <string name="default_assistant_guide_step3_detail3">• 話しかけるか、テキストを入力してやり取りできます</string>
     <string name="default_assistant_guide_troubleshooting_title">お困りですか？</string>
     <string name="default_assistant_guide_troubleshooting_content">一覧に Operit がない場合は、次を確認してください：\n\n• アプリが正しくインストールされ、有効になっている\n• マイクや他のアプリの上に表示する権限などが許可されている\n• デバイスを再起動して設定をやり直す\n\n一部の独自システムでは、第三者アプリを既定のアシスタントにできない場合があります。その場合も、アプリ内のフローティングウィンドウから Operit を利用できます。</string>
-    <string name="voice_interaction_service_name">Operit AI アシスタント</string>
+    <string name="voice_interaction_service_name">Operit C アシスタント</string>
     <string name="voice_interaction_service_summary">AI 音声アシスタントサービス</string>
     <string name="tool_permissions_description">既定では、すべてのツールの実行前に確認します。下で例外を追加できます。</string>
     <string name="global_permission_switch">全体の権限設定</string>
@@ -7592,15 +7592,15 @@
     <string name="chat_ai_service_unavailable_summarize">AI サービスを利用できないため、要約できません</string>
     <string name="chat_summarize_failed_no_valid_summary">要約できませんでした。有効な要約が生成されませんでした。</string>
     <string name="chat_summarize_generation_failed">要約を作成できませんでした：%1$s</string>
-    <string name="service_operit_running">Operit Kong は動作中です</string>
+    <string name="service_operit_running">Operit C Kong は動作中です</string>
     <string name="service_chat_complete_reminder">チャット完了の通知</string>
     <string name="service_chat_complete_reminder_sound">チャット完了の通知（サウンド）</string>
     <string name="service_chat_complete_reminder_vibration">チャット完了の通知（バイブレーション）</string>
     <string name="service_chat_complete_reminder_sound_vibration">チャット完了の通知（サウンドとバイブレーション）</string>
-    <string name="service_keep_background">Operit Kong をバックグラウンドで動作させます。</string>
+    <string name="service_keep_background">Operit C Kong をバックグラウンドで動作させます。</string>
     <string name="service_notify_when_complete">チャットが完了したら通知します。</string>
-    <string name="service_running_wake_pause">Operit Kong は動作中です（音声起動は一時停止中）</string>
-    <string name="service_running_wake_listening">Operit Kong は動作中です（音声起動を待機中）</string>
+    <string name="service_running_wake_pause">Operit C Kong は動作中です（音声起動は一時停止中）</string>
+    <string name="service_running_wake_listening">Operit C Kong は動作中です（音声起動を待機中）</string>
     <string name="service_running_stats">チャット実行 %1$d · ツール呼び出し %2$d</string>
     <string name="service_running_http_listening">外部 HTTP はポート %1$d で待ち受けています</string>
     <string name="service_running_with_http">%1$s · 外部 HTTP %2$d</string>
@@ -7623,7 +7623,7 @@
     <string name="html_export_total_messages">総メッセージ数</string>
     <string name="html_export_group">グループ</string>
     <string name="html_export_message_count">メッセージ数</string>
-    <string name="html_export_footer">Operit AI Assistant からエクスポート</string>
+    <string name="html_export_footer">Operit C Assistant からエクスポート</string>
     <string name="mnn_no_cache_data">キャッシュデータがありません</string>
     <string name="mnn_response_empty">応答本文が空です</string>
     <string name="mnn_fetch_repo_files_failed">リポジトリのファイル一覧を取得できませんでした：%1$s</string>

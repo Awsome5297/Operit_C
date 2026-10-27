@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Operit AI</string>
+    <string name="app_name">Operit C</string>
     <string name="accessibility_service_description">Utilizat pentru a obțineUIIerarhie, pentruAIAsistentul oferă capacități mai rapide de analiză a interfeței și nu colectează sau stochează nicio informație personală.</string>
 
     <!-- 模型选择器相关 -->
@@ -474,9 +474,9 @@
     <string name="termux_setup_guide">Termux Ghidul de configurare</string>
 
     <!-- About Screen -->
-    <string name="about_title">Despre Operit AI</string>
+    <string name="about_title">Despre Operit C</string>
     <string name="about_version">Versiune: %1$s</string>
-    <string name="about_description">Operit AIEste o aplicație de asistență inteligentă, care ajută utilizatorii să-și folosească dispozitivele mai eficient, oferind funcții precum analiza interfeței și conversații prin chat.</string>
+    <string name="about_description">Operit CEste o aplicație de asistență inteligentă, care ajută utilizatorii să-și folosească dispozitivele mai eficient, oferind funcții precum analiza interfeței și conversații prin chat.</string>
     <string name="about_developer">Dezvoltator: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">Contactați-ne: aaswordsman@foxmail.com</string>
     <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
@@ -906,7 +906,7 @@
     <string name="copy_path">Copiază calea</string>
     <string name="path_copied_to_clipboard">Calea a fost copiată în clipboard</string>
     <string name="open_file_manager">Deschideți managerul de fișiere</string>
-    <string name="navigate_to_external_files">Vă rugăm să accesațiAndroid/data/com.ai.assistance.operit/files/packagesCuprins</string>
+    <string name="navigate_to_external_files">Vă rugăm să accesațiAndroid/data/com.ai.assistance.operit.c/files/packagesCuprins</string>
     <string name="package_js_only">Se acceptă doar JavaScript(.js) și ToolPkg(.toolpkg) Document</string>
     <string name="package_script_only">Se acceptă doar HJSON(.hjson),JavaScript(.js) și TypeScript(.ts) Document</string>
     <string name="package_add_dialog_title_plugin">Adaugă plugin</string>
@@ -4816,7 +4816,7 @@
     <string name="default_assistant_guide_step1_title">Setează ca asistent implicit</string>
     <string name="default_assistant_guide_step1_desc">Va Operit Setați ca aplicație implicită de asistență digitală a sistemului</string>
     <string name="default_assistant_guide_step1_detail1">• Deschideți Setări sistem → Aplicații → Aplicații implicite → Aplicația Asistent digital</string>
-    <string name="default_assistant_guide_step1_detail2">• Găsiți și selectați „” din lista de aplicații a asistentuluiOperit AI"</string>
+    <string name="default_assistant_guide_step1_detail2">• Găsiți și selectați „” din lista de aplicații a asistentuluiOperit C"</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12+: Setări → Aplicații → Aplicații implicite → Aplicația Asistent digital → Aplicația implicită pentru Asistentul digital</string>
     <string name="default_assistant_guide_open_settings">Deschideți setările Asistentului</string>
 
@@ -4848,7 +4848,7 @@
     <string name="default_assistant_guide_troubleshooting_content">Dacă nu îl găsiți în listăOperit, vă rugăm să vă asigurați că:\n\n• Aplicația a fost instalată corect și nu a fost dezactivată\n• Au fost acordate permisiunile necesare (microfon, fereastră flotantă etc.)\n• Încercați să reconfigurați dispozitivul după ce îl reporniți\n\nAnumite sisteme personalizate pot restricționa utilizarea aplicațiilor terțe ca asistenți impliciți; în acest caz, puteți utiliza în continuare aplicația prin intermediul funcției de fereastră plutitoare din cadrul acesteiaOperit.</string>
 
     <!-- Voice Interaction Service -->
-    <string name="voice_interaction_service_name">Operit AI asistent</string>
+    <string name="voice_interaction_service_name">Operit C asistent</string>
     <string name="voice_interaction_service_summary">Servicii de asistență vocală inteligentă</string>
 
     <!-- Tool Permission Settings -->
@@ -5141,7 +5141,7 @@
     <string name="start_with_new_chat_description">După activare, la fiecare pornire a aplicației se va deschide o nouă fereastră de chat goală, iar conversația anterioară nu se va mai deschide automat.</string>
     <string name="software_identity_title">Logo-ul software-ului</string>
     <string name="software_identity_description">Modificați sigla aplicației afișată în partea de sus a barei laterale.</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">Ling Shu AI</string>
     <string name="reset_all_display_settings">Resetează toate setările de afișare</string>
     <string name="ui_accessibility_mode">Modul de adaptare pentru accesibilitate</string>
@@ -6905,15 +6905,15 @@
     <string name="chat_summarize_generation_failed">Eșecul generării rezumatului: %1$s</string>
 
     <!-- AIForegroundService (新增) -->
-    <string name="service_operit_running">Operit Kong În curs de execuție</string>
+    <string name="service_operit_running">Operit C Kong În curs de execuție</string>
     <string name="service_chat_complete_reminder">Notificare privind finalizarea conversației</string>
     <string name="service_chat_complete_reminder_sound">Notificare privind finalizarea conversației (semnal sonor)</string>
     <string name="service_chat_complete_reminder_vibration">Notificare privind finalizarea conversației (vibrație)</string>
     <string name="service_chat_complete_reminder_sound_vibration">Notificare la finalizarea conversației (sunet și vibrație)</string>
-    <string name="service_keep_background">Menținere Operit Kong Se execută în fundal.</string>
+    <string name="service_keep_background">Menținere Operit C Kong Se execută în fundal.</string>
     <string name="service_notify_when_complete">Te va avertiza după finalizarea conversației.</string>
-    <string name="service_running_wake_pause">Operit Kong În curs de execuție (în așteptare)</string>
-    <string name="service_running_wake_listening">Operit Kong În execuție (în așteptare de activare)</string>
+    <string name="service_running_wake_pause">Operit C Kong În curs de execuție (în așteptare)</string>
+    <string name="service_running_wake_listening">Operit C Kong În execuție (în așteptare de activare)</string>
     <string name="service_running_stats">Fereastra de dialog de execuție %1$d · Instrumente de apelare %2$d</string>
     <string name="service_running_http_listening">Extern HTTP Se monitorizează portul %1$d</string>
     <string name="service_running_with_http">%1$s · Extern HTTP %2$d</string>
@@ -6960,7 +6960,7 @@
     <string name="html_export_updated">Actualizare</string>
     <string name="html_export_group">Grupare</string>
     <string name="html_export_message_count">Numărul de mesaje</string>
-    <string name="html_export_footer">Extras din Operit AI Assistant</string>
+    <string name="html_export_footer">Extras din Operit C Assistant</string>
 
     <!-- MnnModelDownloadManager (新增) -->
     <string name="mnn_no_cache_data">Date fără cache</string>
@@ -8533,7 +8533,7 @@
     <string name="display_behavior_fps">Afișează rata cadrelor</string>
     <string name="display_behavior_fps_desc">Afișează pe ecran rata cadrelor în timp real.</string>
     <string name="display_behavior_identity">Numele aplicației</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">Lingshu AI</string>
     <string name="display_behavior_identity_desc">Schimbă doar numele afișat în partea de sus a barei laterale.</string>
     <string name="display_behavior_interface_footer">Culorile, fonturile, avatarurile și aspectul mesajelor se reglează în Temă.</string>
@@ -8707,7 +8707,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">Creștere maximă în timpul funcționării</string>
     <string name="pkg_runtime_monitor_last_heap_delta">Increment de memorie recent</string>
     <string name="pkg_runtime_monitor_last_pss_delta">ultimul increment de vârf</string>
-    <string name="agreement_document_title">Operit Kong Acordul utilizatorului și Politica de confidențialitate</string>
+    <string name="agreement_document_title">Operit C Kong Acordul utilizatorului și Politica de confidențialitate</string>
     <string name="system_permission_notifications">Notificare</string>
     <string name="system_permission_app_list">Lista aplicațiilor</string>
     <string name="system_permission_usage_access">Statistici de utilizare a aplicației</string>

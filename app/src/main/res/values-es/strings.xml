@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Operit AI</string>
+    <string name="app_name">Operit C</string>
     <string name="accessibility_service_description">Se utiliza para obtener la jerarquía de la interfaz de usuario, proporcionando al asistente de IA capacidades de análisis de interfaz más rápidas. No recopilará ni almacenará ninguna información personal.</string>
 
     <!-- Navigation -->
@@ -81,9 +81,9 @@
     <string name="termux_wizard_title">Asistente de configuración de Termux</string>
 
     <!-- About Screen -->
-    <string name="about_title">Acerca de Operit AI</string>
+    <string name="about_title">Acerca de Operit C</string>
     <string name="about_version">Versión: %1$s</string>
-    <string name="about_description">Operit AI es una aplicación de asistente inteligente que ayuda a los usuarios a utilizar sus dispositivos de manera más eficiente, proporcionando funciones como análisis de interfaz y chat.</string>
+    <string name="about_description">Operit C es una aplicación de asistente inteligente que ayuda a los usuarios a utilizar sus dispositivos de manera más eficiente, proporcionando funciones como análisis de interfaz y chat.</string>
     <string name="about_developer">Desarrollador: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">Contáctenos: aaswordsman@foxmail.com</string>
     <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
@@ -235,7 +235,7 @@
     <string name="copy_path">Copiar ruta</string>
     <string name="path_copied_to_clipboard">Ruta copiada al portapapeles</string>
     <string name="open_file_manager">Abrir gestor de archivos</string>
-    <string name="navigate_to_external_files">Navegue a Android/data/com.ai.assistance.operit/files/packages</string>
+    <string name="navigate_to_external_files">Navegue a Android/data/com.ai.assistance.operit.c/files/packages</string>
 
     <!-- OperScript Execution -->
     <string name="run_script">Ejecutar script</string>
@@ -4115,7 +4115,7 @@
     <string name="default_assistant_guide_step3_detail3">• Puede intentar hablar o escribir texto para interactuar con el asistente.</string>
     <string name="default_assistant_guide_troubleshooting_title">¿Problemas?</string>
     <string name="default_assistant_guide_troubleshooting_content">Si no encuentra Operit en la lista, asegúrese de que:\n\n• La aplicación esté instalada correctamente y no esté deshabilitada.\n• Se hayan concedido los permisos necesarios (micrófono, ventana flotante, etc.).\n• Intente reiniciar el dispositivo y configurarlo de nuevo.\n\nAlgunos sistemas personalizados pueden restringir aplicaciones de terceros como asistente predeterminado. En ese caso, aún puede usar Operit mediante la función de ventana flotante dentro de la aplicación.</string>
-    <string name="voice_interaction_service_name">Asistente Operit AI</string>
+    <string name="voice_interaction_service_name">Asistente Operit C</string>
     <string name="voice_interaction_service_summary">Servicio de asistente de voz inteligente</string>
     <string name="tool_permissions_title">Permisos de herramientas</string>
     <string name="tool_permissions_description">De forma predeterminada, todas las herramientas requieren su "consulta". Puede agregar excepciones a continuación.</string>
@@ -4334,7 +4334,7 @@
     <string name="default_assistant_guide_step1_title">Configurar como asistente predeterminado</string>
     <string name="default_assistant_guide_step1_desc">Configurar Operit como la aplicación de asistente digital predeterminada del sistema</string>
     <string name="default_assistant_guide_step1_detail1">• Abre Configuración del sistema → Aplicaciones → Aplicaciones predeterminadas → Aplicación de asistente digital</string>
-    <string name="default_assistant_guide_step1_detail2">• En la lista de aplicaciones de asistente, busca y selecciona "Operit AI"</string>
+    <string name="default_assistant_guide_step1_detail2">• En la lista de aplicaciones de asistente, busca y selecciona "Operit C"</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12+: Configuración → Aplicaciones → Aplicaciones predeterminadas → Aplicación de asistente digital → Aplicación de asistente digital predeterminada</string>
     <string name="default_assistant_guide_open_settings">Abrir configuración del asistente</string>
     <string name="default_assistant_guide_open_gesture_settings">Abrir configuración de gestos</string>
@@ -4448,7 +4448,7 @@
     <string name="keep_screen_on_description">Mantener la pantalla encendida para evitar que se bloquee automáticamente durante la conversación</string>
     <string name="software_identity_title">Identidad del software</string>
     <string name="software_identity_description">Cambiar la identidad del software que se muestra en la parte superior de la barra lateral.</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">Lingshu AI</string>
     <string name="reset_all_display_settings">Restablecer toda la configuración de pantalla</string>
     <string name="ui_accessibility_mode">Modo de accesibilidad</string>
@@ -5702,15 +5702,15 @@
     <string name="chat_ai_service_unavailable_summarize">El servicio de IA no está disponible, no se puede resumir</string>
     <string name="chat_summarize_failed_no_valid_summary">Error al resumir: no se pudo generar un resumen válido</string>
     <string name="chat_summarize_generation_failed">Error al generar el resumen: %1$s</string>
-    <string name="service_operit_running">Operit Kong está en ejecución</string>
+    <string name="service_operit_running">Operit C Kong está en ejecución</string>
     <string name="service_chat_complete_reminder">Recordatorio de conversación completada</string>
     <string name="service_chat_complete_reminder_sound">Recordatorio de conversación completada (sonido)</string>
     <string name="service_chat_complete_reminder_vibration">Recordatorio de conversación completada (vibración)</string>
     <string name="service_chat_complete_reminder_sound_vibration">Recordatorio de conversación completada (sonido y vibración)</string>
-    <string name="service_keep_background">Mantener Operit Kong ejecutándose en segundo plano.</string>
+    <string name="service_keep_background">Mantener Operit C Kong ejecutándose en segundo plano.</string>
     <string name="service_notify_when_complete">Notificarle cuando la conversación esté completa.</string>
-    <string name="service_running_wake_pause">Operit Kong está en ejecución (pausa de activación)</string>
-    <string name="service_running_wake_listening">Operit Kong está en ejecución (escuchando activación)</string>
+    <string name="service_running_wake_pause">Operit C Kong está en ejecución (pausa de activación)</string>
+    <string name="service_running_wake_listening">Operit C Kong está en ejecución (escuchando activación)</string>
     <string name="service_running_stats">Ejecutando conversaciones %1$d · herramientas invocadas %2$d</string>
     <string name="service_running_http_listening">HTTP externo escuchando en el puerto %1$d</string>
     <string name="service_running_with_http">%1$s · HTTP externo %2$d</string>
@@ -5751,7 +5751,7 @@
     <string name="html_export_updated">Actualizado</string>
     <string name="html_export_group">Grupo</string>
     <string name="html_export_message_count">Mensajes</string>
-    <string name="html_export_footer">Exportado desde Operit AI Assistant</string>
+    <string name="html_export_footer">Exportado desde Operit C Assistant</string>
     <string name="mnn_no_cache_data">Sin datos en caché</string>
     <string name="mnn_response_empty">El cuerpo de la respuesta está vacío</string>
     <string name="mnn_fetch_repo_files_failed">Error al obtener la lista de archivos del repositorio: %1$s</string>
@@ -8008,7 +8008,7 @@
     <string name="display_behavior_fps">Mostrar fotogramas por segundo</string>
     <string name="display_behavior_fps_desc">Muestra en pantalla la tasa de fotogramas en tiempo real.</string>
     <string name="display_behavior_identity">Nombre de la aplicación</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">Lingshu AI</string>
     <string name="display_behavior_identity_desc">Solo cambia el nombre mostrado en la parte superior de la barra lateral.</string>
     <string name="display_behavior_interface_footer">Los colores, las fuentes, los avatares y la apariencia de los mensajes se ajustan en Tema.</string>
@@ -8182,7 +8182,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">Incremento máximo durante la operación</string>
     <string name="pkg_runtime_monitor_last_heap_delta">Incremento de memoria reciente</string>
     <string name="pkg_runtime_monitor_last_pss_delta">último incremento máximo</string>
-    <string name="agreement_document_title">Operit Kong Acuerdo de usuario y política de privacidad</string>
+    <string name="agreement_document_title">Operit C Kong Acuerdo de usuario y política de privacidad</string>
     <string name="system_permission_notifications">Notificación</string>
     <string name="system_permission_app_list">Lista de aplicaciones</string>
     <string name="system_permission_usage_access">Estadísticas de uso de aplicaciones</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Operit AI</string>
+    <string name="app_name">Operit C</string>
     <string name="accessibility_service_description">UI 계층 구조를 가져오는 데 사용되며 AI 보조자에게 더 빠른 인터페이스 분석 기능을 제공하며 개인 정보를 수집하거나 저장하지 않습니다.</string>
     <string name="model_selector_title">모델 구성 선택</string>
     <string name="model_selector_toggle">모델 선택기 표시</string>
@@ -426,9 +426,9 @@
     <string name="install_termux_failed">Termux 설치 실패</string>
     <string name="open_termux">Termux 열기</string>
     <string name="termux_setup_guide">Termux 설정 가이드</string>
-    <string name="about_title">Operit AI 소개</string>
+    <string name="about_title">Operit C 소개</string>
     <string name="about_version">버전: %1$s</string>
-    <string name="about_description">Operit AI는 인터페이스 분석, 채팅 대화 등을 제공하여 사용자가 장치를 보다 효율적으로 사용할 수 있도록 돕는 지능형 보조 애플리케이션입니다.</string>
+    <string name="about_description">Operit C는 인터페이스 분석, 채팅 대화 등을 제공하여 사용자가 장치를 보다 효율적으로 사용할 수 있도록 돕는 지능형 보조 애플리케이션입니다.</string>
     <string name="about_developer">개발자: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">연락처: aaswordsman@foxmail.com</string>
     <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
@@ -803,7 +803,7 @@
     <string name="copy_path">경로 복사</string>
     <string name="path_copied_to_clipboard">경로가 클립보드에 복사되었습니다.</string>
     <string name="open_file_manager">파일 관리자 열기</string>
-    <string name="navigate_to_external_files">Android/data/com.ai.assistance.operit/files/packages 디렉터리로 이동하세요.</string>
+    <string name="navigate_to_external_files">Android/data/com.ai.assistance.operit.c/files/packages 디렉터리로 이동하세요.</string>
     <string name="package_js_only">JavaScript(.js) 및 ToolPkg(.toolpkg) 파일만 지원됩니다.</string>
     <string name="package_script_only">HJSON(.hjson), JavaScript(.js), TypeScript(.ts) 파일만 지원합니다</string>
     <string name="package_add_dialog_title_plugin">플러그인 추가</string>
@@ -4149,7 +4149,7 @@
     <string name="default_assistant_guide_step1_title">시스템 설정 열기</string>
     <string name="default_assistant_guide_step1_desc">먼저 Android 시스템 설정 인터페이스로 들어가야 합니다.</string>
     <string name="default_assistant_guide_step1_detail1">• 시스템 설정 → 앱 → 기본 앱 → 디지털 보조 앱 열기</string>
-    <string name="default_assistant_guide_step1_detail2">• 보조 앱 목록에서 "Operit AI"를 찾아 선택하세요.</string>
+    <string name="default_assistant_guide_step1_detail2">• 보조 앱 목록에서 "Operit C"를 찾아 선택하세요.</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12+: 설정 → 앱 → 기본 앱 → 디지털 보조 앱 → 기본 디지털 보조 앱</string>
     <string name="default_assistant_guide_open_settings">설정 열기</string>
     <string name="default_assistant_guide_open_gesture_settings">제스처 설정 열기</string>
@@ -4165,13 +4165,13 @@
     <string name="default_assistant_guide_step4_detail1">• 홈 버튼(홈 화면 버튼)을 길게 누르면 Operit 음성 지원이 호출됩니다.</string>
     <string name="default_assistant_guide_step4_detail2">• 음성 깨우기가 지원되는 경우 \"Hey Google\" 또는 기기에 지정된 깨우기 단어를 말하면 Operit가 실행될 수도 있습니다.</string>
     <string name="default_assistant_guide_step3_title">Operit 선택</string>
-    <string name="default_assistant_guide_step3_desc">보조 앱 목록에서 Operit AI를 선택하세요.</string>
-    <string name="default_assistant_guide_step3_detail1">• 사용 가능한 보조 앱 목록에서 \"Operit AI\"를 찾으세요.</string>
+    <string name="default_assistant_guide_step3_desc">보조 앱 목록에서 Operit C를 선택하세요.</string>
+    <string name="default_assistant_guide_step3_detail1">• 사용 가능한 보조 앱 목록에서 \"Operit C\"를 찾으세요.</string>
     <string name="default_assistant_guide_step3_detail2">• 탭하여 선택하면 시스템이 Operit를 기본 보조자로 설정합니다.</string>
     <string name="default_assistant_guide_step3_detail3">• 말하거나 입력하여 어시스턴트와 상호작용할 수 있습니다.</string>
     <string name="default_assistant_guide_troubleshooting_title">문제가 있나요?</string>
     <string name="default_assistant_guide_troubleshooting_content">목록에서 Operit을 찾을 수 없는 경우 다음을 확인하세요. \n\n• 앱이 제대로 설치되었으며 비활성화되지 않았는지 \n• 필요한 권한이 부여되었습니다(마이크, 오버레이 등)\n• 장치를 다시 시작하고 다시 설정해 보세요\n\n일부 맞춤 시스템 타사 앱이 기본 도우미로 설정되는 것을 제한할 수 있습니다. 이러한 상황이 발생하더라도 앱 내 플로팅 창 기능을 통해 Operit를 계속 사용할 수 있습니다.</string>
-    <string name="voice_interaction_service_name">Operit AI 도우미</string>
+    <string name="voice_interaction_service_name">Operit C 도우미</string>
     <string name="voice_interaction_service_summary">지능형 음성비서 서비스</string>
     <string name="tool_permissions_title">도구 권한</string>
     <string name="tool_permissions_description">기본적으로 모든 도구는 \'요청\' 권한이 필요합니다. 아래에서 예외를 추가할 수 있습니다.</string>
@@ -4435,7 +4435,7 @@
     <string name="enable_navigation_animation_description">휴대폰 사이드바와 페이지 전환 모두에 향상된 애니메이션 세트를 켭니다. 더 단순한 내비게이션 모션을 사용하려면 이 기능을 끄세요.</string>
     <string name="software_identity_title">소프트웨어 ID</string>
     <string name="software_identity_description">사이드바 상단에 표시된 소프트웨어 ID를 변경하세요.</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">링슈 AI</string>
     <string name="reset_all_display_settings">모든 디스플레이 설정 재설정</string>
     <string name="ui_accessibility_mode">접근성 모드</string>
@@ -6010,15 +6010,15 @@
     <string name="chat_ai_service_unavailable_summarize">AI 서비스 이용 불가, 요약 불가</string>
     <string name="chat_summarize_failed_no_valid_summary">요약 실패: 유효한 요약을 생성할 수 없습니다.</string>
     <string name="chat_summarize_generation_failed">요약 생성 실패: %1$s</string>
-    <string name="service_operit_running">Operit Kong가 실행 중입니다.</string>
+    <string name="service_operit_running">Operit C Kong가 실행 중입니다.</string>
     <string name="service_chat_complete_reminder">채팅 완료 알림</string>
     <string name="service_chat_complete_reminder_sound">채팅 완료 알림(소리)</string>
     <string name="service_chat_complete_reminder_vibration">채팅 완료 알림(진동)</string>
     <string name="service_chat_complete_reminder_sound_vibration">채팅 완료 알림(소리 및 진동)</string>
-    <string name="service_keep_background">Operit Kong를 백그라운드에서 계속 실행하세요.</string>
+    <string name="service_keep_background">Operit C Kong를 백그라운드에서 계속 실행하세요.</string>
     <string name="service_notify_when_complete">대화가 완료되면 알려드립니다.</string>
-    <string name="service_running_wake_pause">Operit Kong 실행 중(깨우기 일시 중지됨)</string>
-    <string name="service_running_wake_listening">Operit Kong 실행 중(깨우기 청취)</string>
+    <string name="service_running_wake_pause">Operit C Kong 실행 중(깨우기 일시 중지됨)</string>
+    <string name="service_running_wake_listening">Operit C Kong 실행 중(깨우기 청취)</string>
     <string name="service_running_stats">대화 %1$d · 도구 %2$d</string>
     <string name="service_running_http_listening">포트 %1$d에서 수신 대기 중인 외부 HTTP</string>
     <string name="service_running_with_http">%1$s · HTTP %2$d</string>
@@ -6059,7 +6059,7 @@
     <string name="html_export_updated">업데이트됨</string>
     <string name="html_export_group">그룹</string>
     <string name="html_export_message_count">메시지 수</string>
-    <string name="html_export_footer">Operit AI Assistant에서 내보냄</string>
+    <string name="html_export_footer">Operit C Assistant에서 내보냄</string>
     <string name="mnn_no_cache_data">캐시 데이터 없음</string>
     <string name="mnn_response_empty">응답 본문이 비어 있습니다.</string>
     <string name="mnn_fetch_repo_files_failed">저장소 파일 목록을 가져오지 못했습니다: %1$s</string>
@@ -7794,7 +7794,7 @@
     <string name="display_behavior_fps">프레임 속도 표시</string>
     <string name="display_behavior_fps_desc">화면에 실시간 프레임 속도를 표시합니다.</string>
     <string name="display_behavior_identity">앱 이름</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">링슈 AI</string>
     <string name="display_behavior_identity_desc">사이드바 상단에 표시되는 앱 이름만 변경합니다.</string>
     <string name="display_behavior_interface_footer">색상, 글꼴, 아바타, 메시지 모양은 계속 테마에서 설정하세요.</string>
@@ -7968,7 +7968,7 @@
     <string name="pkg_runtime_monitor_active_pss_delta">작동 중 피크 증가량</string>
     <string name="pkg_runtime_monitor_last_heap_delta">최근 메모리 증가</string>
     <string name="pkg_runtime_monitor_last_pss_delta">최신 피크 증분</string>
-    <string name="agreement_document_title">Operit Kong 사용자 계약 및 개인 정보 보호 정책</string>
+    <string name="agreement_document_title">Operit C Kong 사용자 계약 및 개인 정보 보호 정책</string>
     <string name="system_permission_notifications">알림</string>
     <string name="system_permission_app_list">신청 목록</string>
     <string name="system_permission_usage_access">앱 사용 통계</string>

@@ -43,7 +43,7 @@ class DistributionPublishingTest(unittest.TestCase):
         self.assertIsNone(publisher.select_previous_release(values, "1.12.2+3", "v1.12.3+1"))
 
     def test_apk_identity_and_fixed_signature_are_checked(self):
-        good = "package: name='com.ai.assistance.operit.kong' versionCode='54' versionName='1.12.2+2'\n"
+        good = "package: name='com.ai.assistance.operit.c.kong' versionCode='54' versionName='1.12.2+2'\n"
         signed = "Signer #1 certificate SHA-256 digest: " + publisher.CERTIFICATE_SHA256.lower()
         with patch.object(publisher, "run", side_effect=[good, signed]):
             self.assertEqual(54, publisher.inspect_apk(Path("app-kong.apk"), Path("sdk"))["versionCode"])

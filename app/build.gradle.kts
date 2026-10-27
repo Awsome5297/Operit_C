@@ -491,7 +491,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.ai.assistance.operit"
+        applicationId = "com.ai.assistance.operit.c"
         minSdk = 26
         targetSdk = 34
         versionCode = 72
@@ -537,7 +537,7 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug")
-            resValue("string", "app_name", "Operit Debug")
+            resValue("string", "app_name", "Operit C Debug")
         }
         create("clone") {
             initWith(getByName("debug"))
@@ -546,7 +546,7 @@ android {
                 signingConfig = releaseSigningConfig
             }
             matchingFallbacks += listOf("debug")
-            resValue("string", "app_name", "Operit Clone")
+            resValue("string", "app_name", "Operit C Clone")
         }
         create("nightly") {
             isMinifyEnabled = false
@@ -699,7 +699,7 @@ if (ciPreviewRelease) {
                 commandLine(aapt2.path, "dump", "badging", apkFile.path)
             }.standardOutput.asText.get()
             require(badging.lineSequence().any {
-                it.startsWith("package: name='com.ai.assistance.operit.kong' ")
+                it.startsWith("package: name='com.ai.assistance.operit.c.kong' ")
             }) {
                 "Kong coexist APK has an unexpected package name"
             }

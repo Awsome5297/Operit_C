@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Operit AI</string>
+    <string name="app_name">Operit C</string>
     <string name="accessibility_service_description">用于获取UI层次结构，为AI助手提供更快速的界面分析能力，不会收集或存储任何个人信息。</string>
 
     <!-- 模型选择器相关 -->
@@ -474,9 +474,9 @@
     <string name="termux_setup_guide">Termux 设置向导</string>
 
     <!-- About Screen -->
-    <string name="about_title">关于 Operit AI</string>
+    <string name="about_title">关于 Operit C</string>
     <string name="about_version">版本: %1$s</string>
-    <string name="about_description">Operit AI是一个智能助手应用，能够帮助用户更高效地使用设备，提供界面分析、聊天对话等功能。</string>
+    <string name="about_description">Operit C是一个智能助手应用，能够帮助用户更高效地使用设备，提供界面分析、聊天对话等功能。</string>
     <string name="about_developer">开发者: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
     <string name="about_contact">联系我们: aaswordsman@foxmail.com</string>
     <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
@@ -930,7 +930,7 @@
     <string name="copy_path">复制路径</string>
     <string name="path_copied_to_clipboard">路径已复制到剪贴板</string>
     <string name="open_file_manager">打开文件管理器</string>
-    <string name="navigate_to_external_files">请导航到Android/data/com.ai.assistance.operit/files/packages目录</string>
+    <string name="navigate_to_external_files">请导航到Android/data/com.ai.assistance.operit.c/files/packages目录</string>
     <string name="package_js_only">仅支持 JavaScript(.js) 和 ToolPkg(.toolpkg) 文件</string>
     <string name="package_script_only">仅支持 HJSON(.hjson)、JavaScript(.js) 和 TypeScript(.ts) 文件</string>
     <string name="package_add_dialog_title_plugin">添加插件</string>
@@ -1057,7 +1057,7 @@
     <string name="language_changed">语言已更改，正在重启应用</string>
     <!-- 用户协议界面 -->
     <string name="agreement_title">用户协议</string>
-    <string name="agreement_document_title">Operit Kong 用户协议与隐私政策</string>
+    <string name="agreement_document_title">Operit C Kong 用户协议与隐私政策</string>
 
     <string name="market_agreement_title">插件市场使用协议与行为规范</string>
     <string name="market_agreement_version">市场协议版本：%1$s</string>
@@ -5213,7 +5213,7 @@
     <string name="default_assistant_guide_step1_title">设置为默认助理</string>
     <string name="default_assistant_guide_step1_desc">将 Operit 设置为系统的默认数字助理应用</string>
     <string name="default_assistant_guide_step1_detail1">• 打开系统设置 → 应用 → 默认应用 → 数字助理应用</string>
-    <string name="default_assistant_guide_step1_detail2">• 在助手应用列表中找到并选择"Operit AI"</string>
+    <string name="default_assistant_guide_step1_detail2">• 在助手应用列表中找到并选择"Operit C"</string>
     <string name="default_assistant_guide_step1_detail_android12">Android 12+: 设置 → 应用 → 默认应用 → 数字助理应用 → 默认数字助理应用</string>
     <string name="default_assistant_guide_open_settings">打开助理设置</string>
 
@@ -5245,7 +5245,7 @@
     <string name="default_assistant_guide_troubleshooting_content">如果在列表中找不到Operit，请确保：\n\n• 应用已正确安装且未被禁用\n• 已授予必要的权限（麦克风、悬浮窗等）\n• 尝试重启设备后再次设置\n\n部分定制系统可能限制第三方应用作为默认助手，如遇此情况，您仍可通过应用内的悬浮窗功能使用Operit。</string>
 
     <!-- Voice Interaction Service -->
-    <string name="voice_interaction_service_name">Operit AI 助手</string>
+    <string name="voice_interaction_service_name">Operit C 助手</string>
     <string name="voice_interaction_service_summary">智能语音助手服务</string>
 
     <!-- Tool Permission Settings -->
@@ -5538,7 +5538,7 @@
     <string name="start_with_new_chat_description">开启后，每次启动应用都会进入一个新的空白聊天界面，不再自动打开上一次聊天。</string>
     <string name="software_identity_title">软件标识</string>
     <string name="software_identity_description">更改侧边栏顶部显示的软件标识。</string>
-    <string name="software_identity_option_operit">Operit AI</string>
+    <string name="software_identity_option_operit">Operit C</string>
     <string name="software_identity_option_lingshu">灵枢 AI</string>
     <string name="reset_all_display_settings">重置所有显示设置</string>
     <string name="ui_accessibility_mode">无障碍适配模式</string>
@@ -7319,15 +7319,15 @@
     <string name="chat_summarize_generation_failed">总结生成失败: %1$s</string>
 
     <!-- AIForegroundService (新增) -->
-    <string name="service_operit_running">Operit Kong 正在运行</string>
+    <string name="service_operit_running">Operit C Kong 正在运行</string>
     <string name="service_chat_complete_reminder">对话完成提醒</string>
     <string name="service_chat_complete_reminder_sound">对话完成提醒（提示音）</string>
     <string name="service_chat_complete_reminder_vibration">对话完成提醒（震动）</string>
     <string name="service_chat_complete_reminder_sound_vibration">对话完成提醒（提示音和震动）</string>
-    <string name="service_keep_background">保持 Operit Kong 在后台运行。</string>
+    <string name="service_keep_background">保持 Operit C Kong 在后台运行。</string>
     <string name="service_notify_when_complete">对话完成后提醒你。</string>
-    <string name="service_running_wake_pause">Operit Kong 正在运行（唤醒暂停）</string>
-    <string name="service_running_wake_listening">Operit Kong 正在运行（唤醒监听中）</string>
+    <string name="service_running_wake_pause">Operit C Kong 正在运行（唤醒暂停）</string>
+    <string name="service_running_wake_listening">Operit C Kong 正在运行（唤醒监听中）</string>
     <string name="service_running_stats">运行对话 %1$d · 调用工具 %2$d</string>
     <string name="service_running_http_listening">外部 HTTP 正在监听端口 %1$d</string>
     <string name="service_running_with_http">%1$s · 外部 HTTP %2$d</string>
@@ -7374,7 +7374,7 @@
     <string name="html_export_updated">更新</string>
     <string name="html_export_group">分组</string>
     <string name="html_export_message_count">消息数</string>
-    <string name="html_export_footer">导出自 Operit AI Assistant</string>
+    <string name="html_export_footer">导出自 Operit C Assistant</string>
 
     <!-- MnnModelDownloadManager (新增) -->
     <string name="mnn_no_cache_data">无缓存数据</string>
@@ -8887,7 +8887,7 @@
     <string name="display_behavior_fps">显示帧率</string>
     <string name="display_behavior_fps_desc">在屏幕上显示实时帧率指标。</string>
     <string name="display_behavior_identity">软件标识</string>
-    <string name="display_behavior_identity_operit">Operit AI</string>
+    <string name="display_behavior_identity_operit">Operit C</string>
     <string name="display_behavior_identity_lingshu">灵枢 AI</string>
     <string name="display_behavior_identity_desc">仅更改侧栏顶部显示的软件名称。</string>
     <string name="display_behavior_interface_footer">颜色、字体、头像与消息外观继续在「主题」中设置。</string>

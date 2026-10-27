@@ -8,7 +8,7 @@
 
 自动检查与手动检查共用 Beta 计划开关：关闭时仅选择 `x.y.z` 正式版，开启后也选择 `x.y.z+n` 补丁版。先过滤渠道，再比较数字版本。退出 Beta 不降级已有补丁版，仍可安装更高基础版本的正式版。开关变化后清除旧检查结果。
 
-首次切换通过完整 APK 安装。包名保持 `com.ai.assistance.operit.kong`，沿用已有固定签名，versionCode 递增。仅创建标签或上传 Actions artifact 不会形成可发现的应用更新。完整 APK 必须随 Release 保存，供新用户安装和后续生成补丁。
+首次切换通过完整 APK 安装。包名保持 `com.ai.assistance.operit.c.kong`，沿用已有固定签名，versionCode 递增。仅创建标签或上传 Actions artifact 不会形成可发现的应用更新。完整 APK 必须随 Release 保存，供新用户安装和后续生成补丁。
 
 ## 发布方法
 
