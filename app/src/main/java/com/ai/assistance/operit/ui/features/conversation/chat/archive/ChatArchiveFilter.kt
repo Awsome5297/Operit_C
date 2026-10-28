@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -50,6 +51,7 @@ internal fun ChatArchiveFilter(
         )
     val selectedIndex = if (archived) 1 else 0
     val shape = RoundedCornerShape(12.dp)
+    val accentColor = MaterialTheme.colorScheme.primary
 
     Box(
         modifier =
@@ -58,7 +60,7 @@ internal fun ChatArchiveFilter(
                 .padding(horizontal = 12.dp)
                 .height(40.dp)
                 .clip(shape)
-                .background(contentColor.copy(alpha = 0.06f)),
+                .background(contentColor.copy(alpha = 0.10f)),
     ) {
         BoxWithConstraints(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
             val segmentWidth = maxWidth / labels.size
@@ -69,6 +71,12 @@ internal fun ChatArchiveFilter(
                     label = "archiveThumb",
                 )
             // 滑块不设 elevation/shadow：阴影会让动画中的位置与绘制分离，出现闪烁。
+            // 侧栏的 selectedContainerColor 与侧栏底色几乎相同，直接用会让滑块不可见；
+            // 这里以主题主色做低饱和混合，既保证对比度又不会抢走侧栏配色。
+            val thumbColor =
+                remember(selectedContainerColor, accentColor) {
+                    accentColor.copy(alpha = 0.22f).compositeOver(selectedContainerColor)
+                }
             Box(
                 modifier =
                     Modifier
@@ -76,7 +84,7 @@ internal fun ChatArchiveFilter(
                         .width(segmentWidth)
                         .fillMaxHeight()
                         .clip(shape)
-                        .background(selectedContainerColor),
+                        .background(thumbColor),
             )
         }
         Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {

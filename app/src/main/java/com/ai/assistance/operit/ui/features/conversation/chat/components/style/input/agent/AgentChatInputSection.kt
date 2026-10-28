@@ -69,6 +69,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -684,13 +685,25 @@ fun AgentChatInputSection(
             modifier
         }
 
-    var inputAreaTopInWindow by remember { mutableStateOf(Float.NaN) }
+    // 菜单锚点只在打开菜单的瞬间采样一次：输入法动画期间位置每帧变化，
+    // 常驻监听会把动画帧同步成状态写入，导致整段输入区反复重组而卡顿。
+    val inputAnchor = remember { mutableFloatStateOf(Float.NaN) }
+    val wantsInputAnchor =
+        showModelSelectorPopup.value || showExtraSettingsPopup.value || showAttachmentPanel
+    // 普通变量不参与快照系统：写入它不会触发重组，避免监听本身成为重组来源。
+    val captureState = remember { AnchorCapture() }
+    LaunchedEffect(wantsInputAnchor) {
+        if (!wantsInputAnchor) captureState.captured = false
+    }
 
     Surface(
         color = Color.Transparent,
         modifier =
             floatingContainerModifier.onGloballyPositioned { coordinates ->
-                inputAreaTopInWindow = coordinates.positionInWindow().y
+                if (wantsInputAnchor && !captureState.captured) {
+                    captureState.captured = true
+                    inputAnchor.floatValue = coordinates.positionInWindow().y
+                }
             }
     ) {
         Column {
@@ -1430,7 +1443,7 @@ fun AgentChatInputSection(
 
             AgentModelSelectorPopup(
                 visible = showModelSelectorPopup.value,
-                anchorTopInWindowPx = inputAreaTopInWindow,
+                anchorTopInWindowPx = inputAnchor.floatValue,
                 popupContainerColor = popupContainerColor,
                 configSummaries = configSummaries,
                 currentConfigMapping = effectiveConfigMapping,
@@ -1455,7 +1468,7 @@ fun AgentChatInputSection(
 
             AgentExtraSettingsPopup(
                 visible = showExtraSettingsPopup.value,
-                anchorTopInWindowPx = inputAreaTopInWindow,
+                anchorTopInWindowPx = inputAnchor.floatValue,
                 actualViewModel = actualViewModel,
                 onContextUsageClick = {
                     showExtraSettingsPopup.value = false
@@ -1496,7 +1509,7 @@ fun AgentChatInputSection(
 
             AttachmentSelectorPopupPanel(
                 visible = showAttachmentPanel,
-                anchorTopInWindowPx = inputAreaTopInWindow,
+                anchorTopInWindowPx = inputAnchor.floatValue,
                 containerColor = popupContainerColor,
                 onContinueGeneration = onContinueGeneration,
                 continueGenerationEnabled = continueGenerationEnabled && !isProcessing,
@@ -1529,6 +1542,10 @@ fun AgentChatInputSection(
             }
         }
     }
+}
+
+private class AnchorCapture {
+    var captured: Boolean = false
 }
 
 @Composable
