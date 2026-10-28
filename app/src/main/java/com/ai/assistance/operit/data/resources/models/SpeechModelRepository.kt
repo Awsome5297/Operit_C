@@ -29,7 +29,7 @@ class SpeechModelRepository(context: Context) {
             path.split('/').forEach { base.addPathSegment(it) }
             return base.build().toString()
         }
-        val manifest = Json { ignoreUnknownKeys = true }.decodeFromString<SpeechModelManifest>(ResourceTransfer.readText(url(SpeechModels.MANIFEST)))
+        val manifest = Json { ignoreUnknownKeys = true }.decodeFromString<SpeechModelManifest>(ResourceTransfer.readText(context, url(SpeechModels.MANIFEST)))
         manifest.validate()
         require(manifest.purpose == purpose) { "仓库模型与所选用途不一致" }
         manifest.copy(

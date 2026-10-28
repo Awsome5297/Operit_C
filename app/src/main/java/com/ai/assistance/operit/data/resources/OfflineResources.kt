@@ -1,6 +1,7 @@
 package com.ai.assistance.operit.data.resources
 
 import android.content.Context
+import com.ai.assistance.operit.data.resources.models.GitHubAssetAuth
 import com.ai.assistance.operit.data.resources.models.ResourceDownloadPhase
 import android.net.Uri
 import com.ai.assistance.operit.R
@@ -16,12 +17,8 @@ import java.io.IOException
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
@@ -29,7 +26,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
-import okhttp3.Request
 
 object OfflineResources {
     const val SPEECH = "speech"
@@ -221,22 +217,14 @@ object OfflineResources {
             phase(ResourceDownloadPhase.DOWNLOADING)
             val part = File(dir, "${spec.name}.part")
             try {
-                coroutineScope {
-                    val call = client.newCall(Request.Builder().url(DOWNLOAD_URL + spec.name).build())
-                    val cancellation = launch(start = CoroutineStart.UNDISPATCHED) {
-                        try { awaitCancellation() } finally { call.cancel() }
-                    }
-                    try {
-                        call.execute().use { response ->
-                            if (response.code != 200) throw IOException("HTTP ${response.code}: ${spec.name}")
-                            val body = response.body ?: throw IOException("Empty response: ${spec.name}")
-                            body.byteStream().use { input ->
-                                ResourceArchive.writeVerified(input, part, spec, { jobContext.ensureActive() }) {
-                                    progress(completed + it, total)
-                                }
-                            }
+                GitHubAssetAuth.execute(context, client, DOWNLOAD_URL + spec.name).use { response ->
+                    if (!response.isSuccessful) throw IOException("HTTP ${response.code}: ${spec.name}")
+                    val body = response.body ?: throw IOException("Empty response: ${spec.name}")
+                    body.byteStream().use { input ->
+                        ResourceArchive.writeVerified(input, part, spec, { jobContext.ensureActive() }) {
+                            progress(completed + it, total)
                         }
-                    } finally { cancellation.cancelAndJoin() }
+                    }
                 }
                 jobContext.ensureActive()
                 phase(ResourceDownloadPhase.INSTALLING)

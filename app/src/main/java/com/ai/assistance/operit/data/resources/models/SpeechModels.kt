@@ -99,7 +99,7 @@ class SpeechModels(context: Context) {
                 if (!ModelArchive.verified(cache, archive, checkpoint)) {
                     progress(engineBytes, total)
                     phase(ResourceDownloadPhase.DOWNLOADING)
-                    ResourceTransfer.download(archive.url, archive, compressed) { progress(engineBytes + it, total) }
+                    ResourceTransfer.download(context, archive.url, archive, compressed) { progress(engineBytes + it, total) }
                 }
                 phase(ResourceDownloadPhase.INSTALLING)
                 val extracted = File(context.filesDir, "runtime/staging/model-${UUID.randomUUID()}")
@@ -118,7 +118,7 @@ class SpeechModels(context: Context) {
                 progress(engineBytes + completed, total)
                 phase(ResourceDownloadPhase.DOWNLOADING)
                 needed.forEach { file ->
-                    ResourceTransfer.download(ResourceTransfer.modelUrl(model, file, source), file, cache.containedFile(file.path)) { progress(engineBytes + completed + it, total) }
+                    ResourceTransfer.download(context, ResourceTransfer.modelUrl(model, file, source), file, cache.containedFile(file.path)) { progress(engineBytes + completed + it, total) }
                     completed += file.bytes
                 }
                 phase(ResourceDownloadPhase.INSTALLING)

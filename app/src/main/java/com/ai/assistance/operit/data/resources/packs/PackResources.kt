@@ -116,7 +116,7 @@ object PackResources {
             if (cache.usableSpace < pack.archive.bytes + pack.files.sumOf(ModelFile::bytes) + 1024 * 1024 && context.cacheDir.usableSpace < pack.archive.bytes + pack.files.sumOf(ModelFile::bytes) + 1024 * 1024) error("设备空间不足")
             progress(0, pack.archive.bytes)
             phase(ResourceDownloadPhase.DOWNLOADING)
-            ResourceTransfer.download(pack.archive.url, pack.archive, cache) { progress(it, pack.archive.bytes) }
+            ResourceTransfer.download(context, pack.archive.url, pack.archive, cache) { progress(it, pack.archive.bytes) }
             phase(ResourceDownloadPhase.INSTALLING)
             try {
                 cache.inputStream().use { importLocked(context, id, it, pack.archive.path) { _, _ -> } }
