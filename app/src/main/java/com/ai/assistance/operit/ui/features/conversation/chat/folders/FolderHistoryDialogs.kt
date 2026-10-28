@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import kotlin.math.roundToInt
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -61,23 +62,27 @@ internal fun HistoryActionsMenu(anchor: Rect, actions: List<HistoryAction>, onDi
                     popupContentSize: IntSize,
                 ): IntOffset {
                     val margin = with(density) { 8.dp.roundToPx() }
+                    val anchorLeft = anchor.left.roundToInt()
+                    val anchorRight = anchor.right.roundToInt()
+                    val anchorTop = anchor.top.roundToInt()
+                    val anchorBottom = anchor.bottom.roundToInt()
                     // 菜单左边缘接在触发按钮右侧；右侧空间不足时翻到按钮左侧。
                     val maxX = (windowSize.width - popupContentSize.width - margin).coerceAtLeast(margin)
                     val x =
-                        if (anchor.right + margin + popupContentSize.width <= windowSize.width - margin) {
-                            anchor.right + margin
+                        if (anchorRight + margin + popupContentSize.width <= windowSize.width - margin) {
+                            anchorRight + margin
                         } else {
-                            (anchor.left - margin - popupContentSize.width).coerceIn(margin, maxX)
+                            (anchorLeft - margin - popupContentSize.width).coerceIn(margin, maxX)
                         }
 
-                    val spaceBelow = windowSize.height - anchor.bottom - margin
+                    val spaceBelow = windowSize.height - anchorBottom - margin
                     val fitsBelow = spaceBelow >= popupContentSize.height
-                    val above = anchor.top - popupContentSize.height - margin
+                    val above = anchorTop - popupContentSize.height - margin
                     val y =
                         when {
-                            fitsBelow -> anchor.bottom + margin
+                            fitsBelow -> anchorBottom + margin
                             above >= margin -> above
-                            else -> (anchor.bottom + margin)
+                            else -> (anchorBottom + margin)
                                 .coerceAtMost(windowSize.height - popupContentSize.height - margin)
                         }
                     return IntOffset(x, y.coerceAtLeast(margin))

@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
 /** 已核对的目录使用固定版本；自定义仓库必须提供可校验的 Operit 模型清单。 */
-class SpeechModelRepository(context: Context) {
+class SpeechModelRepository(private val context: Context) {
     private val store = SpeechModels(context)
     suspend fun resolve(input: String, source: ModelDownloadSource, revision: String, purpose: SpeechModelPurpose, displayName: String): SpeechModelManifest = withContext(Dispatchers.IO) {
         val repo = ModelRepository.parse(input, source, revision)

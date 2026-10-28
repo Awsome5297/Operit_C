@@ -1,5 +1,6 @@
 package com.ai.assistance.operit.ui.features.conversation.chat.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import kotlin.math.roundToInt
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -116,9 +118,11 @@ fun CharacterSelectorPanel(
                     popupContentSize: IntSize,
                 ): IntOffset {
                     val margin = with(density) { 8.dp.roundToPx() }
+                    val left = anchor.left.roundToInt()
+                    val bottom = anchor.bottom.roundToInt()
                     val maxX = (windowSize.width - popupContentSize.width - margin).coerceAtLeast(margin)
-                    val x = anchor.left.coerceIn(margin, maxX)
-                    val below = anchor.bottom + margin
+                    val x = left.coerceIn(margin, maxX)
+                    val below = bottom + margin
                     val y =
                         if (below + popupContentSize.height <= windowSize.height - margin) {
                             below

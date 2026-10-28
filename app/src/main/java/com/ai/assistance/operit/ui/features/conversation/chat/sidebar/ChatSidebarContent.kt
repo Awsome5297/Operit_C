@@ -67,6 +67,8 @@ fun ChatSidebarContent(
     val streamingIds by viewModel.activeStreamingChatIds.collectAsState()
     val searchQuery by viewModel.chatHistorySearchQuery.collectAsState()
     val userPreferences = remember(context) { UserPreferencesManager.getInstance(context) }
+    // 角色选择浮层以角色行为锚点，需在函数作用域内共享。
+    var characterAnchor by remember { mutableStateOf<Rect?>(null) }
     val cardId = state.activeCharacterCard?.id
     val groupId = state.activeCharacterGroup?.id
     val cardAvatar by remember(cardId) {
@@ -116,7 +118,6 @@ fun ChatSidebarContent(
                     selected = selectedItem == NavItem.Workflow, detail = stringResource(R.string.sidebar_workflow_description),
                     onClick = { onNavItemClick(NavItem.Workflow) })
         }
-        var characterAnchor by remember { mutableStateOf<Rect?>(null) }
         Row(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp).height(44.dp)
                 .onGloballyPositioned { characterAnchor = it.boundsInWindow() },
