@@ -72,25 +72,18 @@ class GitHubAuthPreferences(private val context: Context) {
         isLenient = true
     }
 
-    private val requiredScopes: Set<String> =
-        GITHUB_SCOPE.split(",")
-            .map { it.trim().lowercase() }
-            .filter { it.isNotEmpty() }
-            .toSet()
-
-    private fun parseScopeSet(scope: String?): Set<String> {
-        return scope
-            ?.split(",")
-            ?.map { it.trim().lowercase() }
-            ?.filter { it.isNotEmpty() }
-            ?.toSet()
-            .orEmpty()
-    }
-
+    /**
+     * GitHub 返回的 scope 字段会把 repo 这类大类拆成 public_repo、repo:status 等细分项，
+     * 直接比对字符串会把已授权会话判成未登录。这里只校验会话版本与令牌是否存在且未过期，
+     * 实际权限由调用方的 API 请求结果决定。
+     */
     private fun isAuthSessionCurrent(preferences: Preferences): Boolean {
-        val grantedScopes = parseScopeSet(preferences[GRANTED_SCOPE])
         val authVersion = preferences[AUTH_VERSION] ?: 0L
-        return authVersion >= REQUIRED_AUTH_VERSION && grantedScopes.containsAll(requiredScopes)
+        if (authVersion < REQUIRED_AUTH_VERSION) return false
+        val token = preferences[ACCESS_TOKEN]
+        if (token.isNullOrBlank()) return false
+        val expiresAt = preferences[TOKEN_EXPIRES_AT] ?: return true
+        return System.currentTimeMillis() < expiresAt
     }
 
     // 登录状态Flow
