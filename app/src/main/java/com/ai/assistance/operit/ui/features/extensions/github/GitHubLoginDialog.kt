@@ -37,7 +37,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.ai.assistance.operit.R
-import com.ai.assistance.operit.data.api.GitHubOAuthBrokerStartResponse
 import com.ai.assistance.operit.ui.common.browser.BrowserCallbackDialog
 import com.ai.assistance.operit.util.logging.AppLogger
 import kotlinx.coroutines.CancellationException
@@ -126,11 +125,16 @@ private fun GitHubEmbeddedLoginDialog(
     onLoginSuccess: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
-    val coordinator = remember { GitHubOAuthCoordinator(context) }
+    val coordinator = remember { GitHubDirectOAuthCoordinator(context) }
     val scope = rememberCoroutineScope()
-    var transaction by remember { mutableStateOf<GitHubOAuthBrokerStartResponse?>(null) }
+    var transaction by remember { mutableStateOf<GitHubDirectOAuthCoordinator.Started?>(null) }
 
     LaunchedEffect(Unit) {
+        if (!coordinator.isConfigured()) {
+            OKToast.error(context, "此构建未配置 GitHub OAuth 凭据，无法登录", OKToast.LENGTH_LONG).show()
+            onDismissRequest()
+            return@LaunchedEffect
+        }
         coordinator.startEmbeddedLogin().fold(
             onSuccess = { started -> transaction = started },
             onFailure = { error ->
@@ -232,7 +236,7 @@ private fun GitHubExternalLoginDialog(
     onLoginSuccess: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
-    val coordinator = remember { GitHubOAuthCoordinator(context) }
+    val coordinator = remember { GitHubDirectOAuthCoordinator(context) }
     var callbackServer by remember { mutableStateOf<GitHubOAuthLoopbackCallbackServer?>(null) }
     var isLaunching by remember { mutableStateOf(true) }
     var isCompleting by remember { mutableStateOf(false) }

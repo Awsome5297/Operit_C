@@ -40,7 +40,8 @@ class GitHubAuthPreferences(private val context: Context) {
 
     companion object {
         const val GITHUB_SCOPE = "notifications,repo,user:email,read:user"
-        private const val REQUIRED_AUTH_VERSION = 4
+        // v5：scope 校验改为能力探测后，需要强制旧会话重新授权以获取私有仓库读取权限。
+        private const val REQUIRED_AUTH_VERSION = 5
         
         // 认证相关键
         private val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
@@ -53,6 +54,7 @@ class GitHubAuthPreferences(private val context: Context) {
         private val AUTH_VERSION = longPreferencesKey("auth_version")
         private val GRANTED_SCOPE = stringPreferencesKey("granted_scope")
         private val ACTIVE_OAUTH_TRANSACTION_ID = stringPreferencesKey("active_oauth_transaction_id")
+        private val DIRECT_OAUTH_STATE = stringPreferencesKey("direct_oauth_state")
         private val ACTIVE_OAUTH_DELIVERY_CREDENTIAL = stringPreferencesKey("active_oauth_delivery_credential")
         private val ACTIVE_OAUTH_EXPIRES_AT = longPreferencesKey("active_oauth_expires_at")
         
@@ -154,6 +156,27 @@ class GitHubAuthPreferences(private val context: Context) {
             preferences.remove(ACTIVE_OAUTH_TRANSACTION_ID)
             preferences.remove(ACTIVE_OAUTH_DELIVERY_CREDENTIAL)
             preferences.remove(ACTIVE_OAUTH_EXPIRES_AT)
+        }
+    }
+
+    /** 保存直连 OAuth 的事务状态，state 用于回调校验。 */
+    suspend fun saveDirectOAuthState(state: String, redirectUri: String, expiresAt: Long) {
+        context.githubAuthDataStore.edit { preferences ->
+            preferences[DIRECT_OAUTH_STATE] = json.encodeToString(
+                DirectOAuthState(state, redirectUri, expiresAt),
+            )
+        }
+    }
+
+    suspend fun getDirectOAuthState(): DirectOAuthState? {
+        val preferences = context.githubAuthDataStore.data.first()
+        val raw = preferences[DIRECT_OAUTH_STATE] ?: return null
+        return runCatching { json.decodeFromString<DirectOAuthState>(raw) }.getOrNull()
+    }
+
+    suspend fun clearDirectOAuthState() {
+        context.githubAuthDataStore.edit { preferences ->
+            preferences.remove(DIRECT_OAUTH_STATE)
         }
     }
 
@@ -275,4 +298,11 @@ data class ActiveGitHubOAuthTransaction(
     val transactionId: String,
     val deliveryCredential: String,
     val expiresAt: Long
+)
+
+@Serializable
+data class DirectOAuthState(
+    val state: String,
+    val redirectUri: String,
+    val expiresAt: Long,
 )

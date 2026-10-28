@@ -31,8 +31,15 @@ internal object GitHubAssetAuth {
             return followRedirects(client, Request.Builder().url(url).build(), authenticated = false)
         }
         val assetId =
-            resolveAssetId(client, auth, asset)
-                ?: throw IOException("无法通过 API 定位发布资源：${asset.name}")
+            try {
+                resolveAssetId(client, auth, asset)
+            } catch (failure: IOException) {
+                throw IOException("无法通过 API 定位发布资源：${asset.name}。原因：${failure.message}", failure)
+            }
+                ?: throw IOException(
+                    "发布资源清单里没有 ${asset.name}，请检查仓库 " +
+                        "${asset.owner}/${asset.repo} 的 ${asset.tag} 是否包含该文件",
+                )
         val apiRequest =
             Request.Builder()
                 .url("$API_BASE/repos/${asset.owner}/${asset.repo}/releases/assets/$assetId")
@@ -56,7 +63,14 @@ internal object GitHubAssetAuth {
                 .header("Accept", "application/vnd.github+json")
                 .build()
         client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) return null
+            // 401/404 说明 token 缺少私有仓库读取权限（多半是 scope 修复前的旧会话），
+            // 把状态码带出去才能区分网络故障与授权不足。
+            if (!response.isSuccessful) {
+                throw IOException(
+                    "GitHub API ${response.code}：${asset.owner}/${asset.repo}" +
+                        (response.message.takeIf(String::isNotEmpty)?.let { " ($it)" } ?: ""),
+                )
+            }
             val body = response.body?.string() ?: return null
             val assets = JSONObject(body).optJSONArray("assets") ?: return null
             for (index in 0 until assets.length()) {

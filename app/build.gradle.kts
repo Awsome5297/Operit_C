@@ -25,11 +25,20 @@ plugins {
 val ciPreviewRelease = providers.environmentVariable("GITHUB_ACTIONS").orNull == "true"
 val ciDistributionCertificateSha256 = "02D3ADB3BB7B5FEAD589ECA659D5154F36FA6E5A1E9A9FCA55E0460A82191AF3"
 
+
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(FileInputStream(localPropertiesFile))
 }
+
+// 直连 GitHub OAuth 的应用凭据：CI 从 Actions Secret 注入，本地从 local.properties 读取。
+val githubOAuthClientId =
+    providers.environmentVariable("OPERIT_OAUTH_CLIENT_ID").orNull
+        ?: localProperties.getProperty("OPERIT_OAUTH_CLIENT_ID").orEmpty()
+val githubOAuthClientSecret =
+    providers.environmentVariable("OPERIT_OAUTH_CLIENT_SECRET").orNull
+        ?: localProperties.getProperty("OPERIT_OAUTH_CLIENT_SECRET").orEmpty()
 
 data class SttModelAsset(
     val targetPath: String,
@@ -492,6 +501,8 @@ android {
 
     defaultConfig {
         applicationId = "com.ai.assistance.operit.c"
+        buildConfigField("String", "GITHUB_OAUTH_CLIENT_ID", "\"$githubOAuthClientId\"")
+        buildConfigField("String", "GITHUB_OAUTH_CLIENT_SECRET", "\"$githubOAuthClientSecret\"")
         minSdk = 26
         targetSdk = 34
         versionCode = 72
