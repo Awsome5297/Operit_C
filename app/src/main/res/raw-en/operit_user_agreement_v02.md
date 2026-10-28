@@ -270,7 +270,7 @@ The plugin market and its online interfaces are maintained by independent servic
 
 ## Article 21 — Complaints, rights and contact
 
-21.1 Questions, client defects and suggestions may be submitted through the repository’s [Issues page](https://github.com/3316891527/Operit/issues). This is a collaboration channel for a personal open-source project, not round-the-clock support or a commercial ticket system; it promises no fixed response or resolution time. Do not publish private data, vulnerabilities, keys or identification documents.
+21.1 Questions, client defects and suggestions may be submitted through the repository’s [Issues page](https://github.com/Awsome5297/Operit_C/issues). This is a collaboration channel for a personal open-source project, not round-the-clock support or a commercial ticket system; it promises no fixed response or resolution time. Do not publish private data, vulnerabilities, keys or identification documents.
 
 21.2 Submit market infringement, moderation, server-record, account-restriction, removal and appeal matters to the actual market maintainer, and model-account or billing matters to the relevant provider. This maintainer may receive feedback about client integration but promises no rulings, refunds, deletion or management action for independent parties.
 

@@ -270,7 +270,7 @@ Pasaran pemalam dan antara muka dalam taliannya diselenggara setiap hari oleh pi
 
 ## Perkara 21 — Aduan, tuntutan hak dan hubungan
 
-21.1 Soalan, kecacatan dan cadangan boleh dihantar melalui [halaman Issues](https://github.com/3316891527/Operit/issues). Ini saluran kerjasama peribadi, bukan pusat khidmat sepanjang masa atau sistem tiket komersial; tiada tempoh jawapan atau penyelesaian tetap. Jangan dedahkan data sulit, kelemahan, kunci atau dokumen pengenalan.
+21.1 Soalan, kecacatan dan cadangan boleh dihantar melalui [halaman Issues](https://github.com/Awsome5297/Operit_C/issues). Ini saluran kerjasama peribadi, bukan pusat khidmat sepanjang masa atau sistem tiket komersial; tiada tempoh jawapan atau penyelesaian tetap. Jangan dedahkan data sulit, kelemahan, kunci atau dokumen pengenalan.
 
 21.2 Hubungi penyelenggara pasaran sebenar bagi pelanggaran, penyederhanaan, rekod, sekatan, penarikan dan rayuan; hubungi penyedia model bagi akaun atau bil. Kami boleh menerima maklum balas integrasi tetapi tidak menjanjikan penghakiman, bayaran balik, pemadaman atau tindakan bagi pihak bebas.
 

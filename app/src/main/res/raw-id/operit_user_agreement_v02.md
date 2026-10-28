@@ -270,7 +270,7 @@ Pasar plugin dan antarmuka daring terkait dipelihara sehari-hari oleh pengelola 
 
 ## Pasal 21 — Pengaduan, hak, dan kontak
 
-21.1 Pertanyaan, cacat klien, dan usulan dapat diajukan melalui [halaman Issues](https://github.com/3316891527/Operit/issues). Ini kanal kolaborasi pribadi, bukan dukungan 24 jam atau tiket komersial; tidak ada janji waktu jawaban atau penyelesaian. Jangan publikasikan data privat, kerentanan, kunci, atau dokumen identitas.
+21.1 Pertanyaan, cacat klien, dan usulan dapat diajukan melalui [halaman Issues](https://github.com/Awsome5297/Operit_C/issues). Ini kanal kolaborasi pribadi, bukan dukungan 24 jam atau tiket komersial; tidak ada janji waktu jawaban atau penyelesaian. Jangan publikasikan data privat, kerentanan, kunci, atau dokumen identitas.
 
 21.2 Pelanggaran pasar, moderasi, catatan server, batas akun, penarikan, dan banding ditujukan ke pengelola pasar sebenarnya; akun serta tagihan model ke penyedia. Pemelihara menerima laporan integrasi klien tanpa menjanjikan keputusan, pengembalian, penghapusan, atau tindakan pengelolaan bagi pihak independen.
 

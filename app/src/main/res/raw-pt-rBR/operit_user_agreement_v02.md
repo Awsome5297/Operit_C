@@ -270,7 +270,7 @@ O mercado de plugins e suas interfaces on-line são mantidos diariamente por res
 
 ## Artigo 21 — Reclamações, direitos e contato
 
-21.1 Envie dúvidas, defeitos e sugestões pela [página de Issues](https://github.com/3316891527/Operit/issues). É um canal colaborativo pessoal, não suporte contínuo ou sistema comercial de chamados; não promete prazo. Não publique dados privados, vulnerabilidades, chaves ou documentos de identificação.
+21.1 Envie dúvidas, defeitos e sugestões pela [página de Issues](https://github.com/Awsome5297/Operit_C/issues). É um canal colaborativo pessoal, não suporte contínuo ou sistema comercial de chamados; não promete prazo. Não publique dados privados, vulnerabilidades, chaves ou documentos de identificação.
 
 21.2 Dirija infrações de mercado, moderação, registros, restrições, retiradas e recursos ao operador real; contas e faturas de modelos ao provedor. O mantenedor recebe relatos de integração sem prometer decisões, devoluções, exclusões ou gestão em nome de terceiros independentes.
 

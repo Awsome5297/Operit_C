@@ -270,7 +270,7 @@ Piața pentru extensii și interfețele sale online sunt întreținute zilnic de
 
 ## Articolul 21 — Reclamații, exercitarea drepturilor și contact
 
-21.1 Întrebările despre utilizare, defectele clientului și sugestiile privind această distribuție pot fi trimise prin [pagina Issues a depozitului](https://github.com/3316891527/Operit/issues). Acesta este un canal de colaborare al unui proiect personal cu sursă deschisă, nu un serviciu de asistență permanentă sau un sistem comercial de tichete. Nu sunt promise termene fixe de răspuns ori soluționare. Nu publicați date private, vulnerabilități de securitate, chei sau documente de identitate.
+21.1 Întrebările despre utilizare, defectele clientului și sugestiile privind această distribuție pot fi trimise prin [pagina Issues a depozitului](https://github.com/Awsome5297/Operit_C/issues). Acesta este un canal de colaborare al unui proiect personal cu sursă deschisă, nu un serviciu de asistență permanentă sau un sistem comercial de tichete. Nu sunt promise termene fixe de răspuns ori soluționare. Nu publicați date private, vulnerabilități de securitate, chei sau documente de identitate.
 
 21.2 Pentru încălcări ale drepturilor prin listările pieței, moderare, înregistrări pe server, restricții de cont, retrageri și contestații, contactați administratorul efectiv al pieței. Problemele conturilor și facturilor modelelor trebuie adresate furnizorului corespunzător. Administratorul distribuției poate primi feedback despre integrarea clientului, dar nu promite să decidă, să ramburseze, să șteargă sau să aplice măsuri administrative în numele acestor părți independente.
 

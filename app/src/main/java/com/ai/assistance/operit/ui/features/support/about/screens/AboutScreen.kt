@@ -1088,8 +1088,8 @@ fun AboutScreen(
                         icon = Icons.Default.Person,
                         iconTint = MaterialTheme.colorScheme.primary,
                         title = stringResource(R.string.about_distribution_maintainer),
-                        subtitleText = "3316891527",
-                        onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/3316891527"))) },
+                        subtitleText = "Awsome5297",
+                        onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Awsome5297"))) },
                     )
                 }
             }

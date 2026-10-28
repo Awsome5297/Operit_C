@@ -270,7 +270,7 @@ El mercado de complementos y sus interfaces en línea son mantenidos diariamente
 
 ## Artículo 21. Reclamaciones, derechos y contacto
 
-21.1 Puede comunicar dudas, defectos y propuestas en la [página de Issues](https://github.com/3316891527/Operit/issues). Es un canal colaborativo personal, no soporte permanente ni un sistema comercial de incidencias; no promete plazos. No publique datos privados, vulnerabilidades, claves o identificaciones.
+21.1 Puede comunicar dudas, defectos y propuestas en la [página de Issues](https://github.com/Awsome5297/Operit_C/issues). Es un canal colaborativo personal, no soporte permanente ni un sistema comercial de incidencias; no promete plazos. No publique datos privados, vulnerabilidades, claves o identificaciones.
 
 21.2 Dirija infracciones del mercado, moderación, registros, restricciones, retiradas y recursos al operador real, y cuentas o facturas de modelos al proveedor. Este responsable acepta comentarios sobre integración, sin prometer decisiones, reembolsos, borrados ni gestión por terceros independientes.
 
