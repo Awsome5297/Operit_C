@@ -36,8 +36,8 @@ object OfflineResources {
     const val UBUNTU = "ubuntu"
     const val ANDROID_EXPORT = "android-export"
     const val WINDOWS_EXPORT = "windows-export"
-    const val RELEASE_URL = "https://github.com/3316891527/Operit-Kong-resources/releases/tag/resources-v1"
-    private const val DOWNLOAD_URL = "https://github.com/3316891527/Operit-Kong-resources/releases/download/resources-v1/"
+    const val RELEASE_URL = "https://github.com/Awsome5297/Operit_C-resources/releases/tag/resources-v1"
+    private const val DOWNLOAD_URL = "https://github.com/Awsome5297/Operit_C-resources/releases/download/resources-v1/"
     private const val SPEECH_DIRECTORY = "sherpa-ncnn-streaming-zipformer-bilingual-zh-en-2023-02-13"
     private val locks = ConcurrentHashMap<String, Mutex>()
     private val client = OkHttpClient.Builder().connectTimeout(20, TimeUnit.SECONDS)

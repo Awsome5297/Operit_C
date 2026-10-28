@@ -1,6 +1,6 @@
 # 独立发行的 Release 与增量更新
 
-客户端统一查询 `Awsome5297/Operit_C-updates` 的 GitHub Releases。该仓库保存所有正式版和补丁版；`Awsome5297/Operit_C` 保留源码、源码版本标签及不带加号的正式版 Release；固定离线资源仍使用上游 `3316891527/Operit-Kong-resources`。更新检查、补丁生成和 APK 还原仍在源码仓库实现。
+客户端统一查询 `Awsome5297/Operit_C-updates` 的 GitHub Releases。该仓库保存所有正式版和补丁版；`Awsome5297/Operit_C` 保留源码、源码版本标签及不带加号的正式版 Release；固定离线资源位于 `Awsome5297/Operit_C-resources`。更新检查、补丁生成和 APK 还原仍在源码仓库实现。
 
 `Operit_C-updates` 当前为私有仓库。客户端必须使用已登录且对该仓库有读取权限的 GitHub 账号，OAuth scope 需包含 `repo`；未登录用户无法检查更新。发布前更新仓库必须已初始化默认分支（至少一个 README 提交），否则权限预检会失败。
 
