@@ -91,3 +91,7 @@ tmp
 temp
 .tmp
 .temp
+
+# 构建产物，避免误提交
+*.apk
+*.apk.zip
