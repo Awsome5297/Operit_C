@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "ci/distribution"))
 from repositories.config import SOURCE_REPOSITORY, UPDATE_REPOSITORY, release_repositories, source_info
 
 REPOSITORY = SOURCE_REPOSITORY
-APK_NAME = "app-kong.apk"
+APK_NAME = "app_c.apk"
 PACKAGE_NAME = "com.ai.assistance.operit.c"
 CERTIFICATE_SHA256 = "02D3ADB3BB7B5FEAD589ECA659D5154F36FA6E5A1E9A9FCA55E0460A82191AF3"
 VERSION_PATTERN = re.compile(r"^v?(\d+)\.(\d+)\.(\d+)(?:\+(\d+))?$")

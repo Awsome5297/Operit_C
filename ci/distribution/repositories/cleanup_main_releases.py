@@ -29,7 +29,7 @@ def cleanup_plan(source: list[dict], targets: dict[str, list[dict]], receipts: d
     expected_published = {item['name']: {'size': item['bytes'], 'digest': 'sha256:' + item['sha256']} for item in release_plan['assets']}
     if asset_specs(published['assets']) != expected_published:
         raise ValueError('+15 公开附件与本次签名发布计划不一致')
-    if len(expected_published) != 4 or 'app-kong.apk' not in expected_published or 'distribution-release.json' not in expected_published:
+    if len(expected_published) != 4 or 'app_c.apk' not in expected_published or 'distribution-release.json' not in expected_published:
         raise ValueError('+15 必须包含完整包、增量包、补丁元数据和发行摘要')
     entries = receipts['releases']
     expected_source = {item['tag']: item for item in entries}

@@ -16,14 +16,14 @@ class DistributionReleaseResolverTest {
         status as UpdateStatus.PatchAvailable
         assertEquals("1.12.2+2", status.newVersion)
         assertTrue(status.patchUrl.contains("Awsome5297/Operit_C-updates/releases/"))
-        assertTrue(requireNotNull(status.fullApkUrl).endsWith("app-kong.apk"))
+        assertTrue(requireNotNull(status.fullApkUrl).endsWith("app_c.apk"))
     }
 
     @Test
     fun higherBaseVersionOffersFullApkEvenWhenPatchAssetsExist() {
         val status = DistributionReleaseResolver.resolve("1.12.2+1", true, listOf(release("1.12.3+1", patch = true)))
         assertTrue(status is UpdateStatus.Available)
-        assertTrue((status as UpdateStatus.Available).downloadUrl.endsWith("app-kong.apk"))
+        assertTrue((status as UpdateStatus.Available).downloadUrl.endsWith("app_c.apk"))
     }
 
     @Test
@@ -150,7 +150,7 @@ class DistributionReleaseResolverTest {
         html_url = "https://github.com/Awsome5297/Operit_C-updates/releases/tag/v$version",
         created_at = "2026-10-15T00:00:00Z",
         assets = buildList {
-            add(asset("app-kong.apk"))
+            add(asset("app_c.apk"))
             if (patch) {
                 add(asset("apkrawpatch_old_to_new.zip"))
                 add(asset("patch_old_to_new.json"))

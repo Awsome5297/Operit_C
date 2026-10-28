@@ -320,7 +320,7 @@ jobs:
           RELEASE_NOTES: ${{ inputs.release_notes }}
         run: |
           python3 ci/distribution/updates/publish_release.py \
-            --apk app/build/outputs/apk/release/app-kong.apk \
+            --apk app/build/outputs/apk/release/app_c.apk \
             --build-tools "$ANDROID_HOME/build-tools/35.0.0" \
             --repository "$GITHUB_REPOSITORY" \
             --commit "$GITHUB_SHA" \

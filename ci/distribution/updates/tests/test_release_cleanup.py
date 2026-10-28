@@ -19,7 +19,7 @@ def asset(name, content=b'asset'):
 class ReleaseCleanupTest(unittest.TestCase):
     def setUp(self):
         self.commit = 'a' * 40
-        self.source = [{'id': 10, 'tag_name': 'v1.12.2+14', 'draft': False, 'prerelease': False, 'assets': [asset('app-kong.apk')]}]
+        self.source = [{'id': 10, 'tag_name': 'v1.12.2+14', 'draft': False, 'prerelease': False, 'assets': [asset('app_c.apk')]}]
         self.target = {UPDATE_REPOSITORY: [copy.deepcopy(self.source[0])], RESOURCE_REPOSITORY: []}
         self.receipts = {'sourceRepository': SOURCE_REPOSITORY, 'updateRepository': UPDATE_REPOSITORY,
                          'resourceRepository': RESOURCE_REPOSITORY, 'releases': [
@@ -27,7 +27,7 @@ class ReleaseCleanupTest(unittest.TestCase):
                               'sourceCommit': 'b' * 40, 'sourceFiles': asset_specs(self.source[0]['assets']),
                               'files': asset_specs(self.target[UPDATE_REPOSITORY][0]['assets'])}]}
         self.published = {'id': 11, 'tag_name': PUBLISHED_TAG, 'draft': False, 'prerelease': False,
-                          'assets': [asset(name) for name in ['app-kong.apk', 'apkrawpatch_14_to_15.zip', 'patch_14_to_15.json', 'distribution-release.json']]}
+                          'assets': [asset(name) for name in ['app_c.apk', 'apkrawpatch_14_to_15.zip', 'patch_14_to_15.json', 'distribution-release.json']]}
         self.plan = {'tag': PUBLISHED_TAG, 'sourceCommit': self.commit, 'repositories': [UPDATE_REPOSITORY],
                      'assets': [{'name': item['name'], 'bytes': item['size'], 'sha256': item['digest'].removeprefix('sha256:')} for item in self.published['assets']]}
 
@@ -71,7 +71,7 @@ class ReleaseCleanupTest(unittest.TestCase):
 
     def test_missing_draft_or_corrupted_migration_target_blocks_cleanup(self):
         for target in [[], [{**self.target[UPDATE_REPOSITORY][0], 'draft': True}],
-                       [{**self.target[UPDATE_REPOSITORY][0], 'assets': [asset('app-kong.apk', b'changed')]}]]:
+                       [{**self.target[UPDATE_REPOSITORY][0], 'assets': [asset('app_c.apk', b'changed')]}]]:
             with self.subTest(target=target):
                 self.target[UPDATE_REPOSITORY] = target
                 with self.assertRaises(ValueError):

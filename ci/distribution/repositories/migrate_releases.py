@@ -53,7 +53,7 @@ def destination(release: dict) -> str:
     tag = release["tag_name"]
     if tag.startswith("resources-"):
         return RESOURCE_REPOSITORY
-    if VERSION_PATTERN.fullmatch(tag) and any(asset["name"] == "app-kong.apk" for asset in release["assets"]):
+    if VERSION_PATTERN.fullmatch(tag) and any(asset["name"] == "app_c.apk" for asset in release["assets"]):
         return UPDATE_REPOSITORY
     raise ValueError("不能确定发行职责，必须先人工核对：" + tag)
 

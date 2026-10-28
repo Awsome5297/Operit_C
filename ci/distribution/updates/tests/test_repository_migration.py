@@ -35,8 +35,8 @@ class RepositoryMigrationTest(unittest.TestCase):
 
     def test_plan_routes_resources_and_all_app_versions_without_mutation(self):
         releases = [release("resources-v1", [asset("model.bin")]),
-                    release("v1.12.2", [asset("app-kong.apk")]),
-                    release("v1.12.2+14", [asset("app-kong.apk")])]
+                    release("v1.12.2", [asset("app_c.apk")]),
+                    release("v1.12.2+14", [asset("app_c.apk")])]
         with tempfile.TemporaryDirectory() as folder:
             with patch("sys.argv", ["migrate_releases.py", "--output", folder]), patch.object(migration, "api", return_value=releases):
                 with patch.object(migration, "initialize_repositories") as initialize, patch.object(migration, "migrate") as copy:
@@ -48,8 +48,8 @@ class RepositoryMigrationTest(unittest.TestCase):
             self.assertEqual(releases, json.loads((Path(folder) / "source-releases.json").read_text()))
 
     def test_unfinished_release_unknown_tag_and_missing_digest_are_rejected(self):
-        values = [release("unrelated", [asset("app-kong.apk")]),
-                  {**release("v1.12.2", [asset("app-kong.apk")]), "draft": True},
+        values = [release("unrelated", [asset("app_c.apk")]),
+                  {**release("v1.12.2", [asset("app_c.apk")]), "draft": True},
                   release("resources-v1", [{**asset("model.bin"), "digest": None}]),
                   release("resources-v1", [asset("../escape")])]
         for value in values:
@@ -87,13 +87,13 @@ class RepositoryMigrationTest(unittest.TestCase):
             root = Path(folder)
             source = root / "source"
             source.mkdir()
-            for name in ["app-kong.apk", "apkrawpatch_13_to_14.zip"]:
+            for name in ["app_c.apk", "apkrawpatch_13_to_14.zip"]:
                 (source / name).write_bytes(b"signed bytes")
             (source / "patch_13_to_14.json").write_text(json.dumps({"repo": SOURCE_REPOSITORY, "targetSha256": "signed digest"}))
             (source / "distribution-release.json").write_text(json.dumps({"releaseNotes": "说明", "targetSha256": "signed digest"}))
             output = root / "prepared"
             migration.prepare_assets(source, output, release("v1.12.2+14", []), UPDATE_REPOSITORY, "a" * 40)
-            for name in ["app-kong.apk", "apkrawpatch_13_to_14.zip"]:
+            for name in ["app_c.apk", "apkrawpatch_13_to_14.zip"]:
                 self.assertEqual((source / name).read_bytes(), (output / name).read_bytes())
             self.assertEqual(UPDATE_REPOSITORY, json.loads((output / "patch_13_to_14.json").read_text())["repo"])
             manifest = json.loads((output / "distribution-release.json").read_text())
@@ -102,11 +102,11 @@ class RepositoryMigrationTest(unittest.TestCase):
             self.assertEqual("signed digest", manifest["targetSha256"])
 
     def test_remote_missing_extra_or_changed_assets_are_rejected(self):
-        expected = migration.asset_specs([asset("app-kong.apk")])
-        for assets in [[], [asset("app-kong.apk", b"other")], [asset("app-kong.apk"), asset("extra")]]:
+        expected = migration.asset_specs([asset("app_c.apk")])
+        for assets in [[], [asset("app_c.apk", b"other")], [asset("app_c.apk"), asset("extra")]]:
             with self.subTest(assets=assets), self.assertRaises(ValueError):
                 migration.verify_remote(release("v1.12.2+14", assets), expected)
-        migration.verify_remote(release("v1.12.2+14", [asset("app-kong.apk")]), expected)
+        migration.verify_remote(release("v1.12.2+14", [asset("app_c.apk")]), expected)
 
     def test_json_history_remains_parseable_and_readable_notes_remain_markdown(self):
         old = release("v1.12.2+2", [])

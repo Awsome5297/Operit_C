@@ -28,7 +28,7 @@
 
 ```bash
 python3 ci/distribution/updates/publish_release.py \
-  --apk app/build/outputs/apk/release/app-kong.apk \
+  --apk app/build/outputs/apk/release/app_c.apk \
   --build-tools "$ANDROID_HOME/build-tools/35.0.0" \
   --repository Awsome5297/Operit_C \
   --commit "$GITHUB_SHA" \
@@ -44,7 +44,7 @@ python3 ci/distribution/updates/publish_release.py \
 
 补丁仅连接同一基础版本的递增版本，基础 Release 标签必须与其 APK 内版本一致。跨基础版本使用完整 APK。客户端从补丁及元数据附件地址解析仓库，直接增量和跨版本链自动使用新仓库，不增加旧仓库查询分支。
 
-发行附件包括完整包 `app-kong.apk`、存在基线时的 `apkrawpatch_*.zip` 和配对 `patch_*.json`，以及 `distribution-release.json`。摘要保留版本、哈希、更新说明、统一更新仓库和源码身份。正文使用非空可读文本或 Markdown，JSON 仅作为附件；历史 JSON 正文继续由既有客户端解析逻辑读取。
+发行附件包括完整包 `app_c.apk`、存在基线时的 `apkrawpatch_*.zip` 和配对 `patch_*.json`，以及 `distribution-release.json`。摘要保留版本、哈希、更新说明、统一更新仓库和源码身份。正文使用非空可读文本或 Markdown，JSON 仅作为附件；历史 JSON 正文继续由既有客户端解析逻辑读取。
 
 安装器最多扫描最近 100 个 Release，补丁链最多连接 64 步。保留链上全部版本和配套文件，历史迁移时 APK 和增量 ZIP 字节保持不变；重新签名或打包的 APK 不适用原链。
 

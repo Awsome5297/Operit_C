@@ -566,7 +566,7 @@ android {
         if (buildType.name == "release" && ciPreviewRelease) {
             outputs.all {
                 val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-                output.outputFileName = "app-kong.apk"
+                output.outputFileName = "app_c.apk"
             }
         }
         if (buildType.name == "nightly") {
@@ -676,7 +676,7 @@ if (ciPreviewRelease) {
         description = "Verifies the signed release APK."
         dependsOn("assembleRelease")
         doLast {
-            val apkFile = layout.buildDirectory.file("outputs/apk/release/app-kong.apk").get().asFile
+            val apkFile = layout.buildDirectory.file("outputs/apk/release/app_c.apk").get().asFile
             require(apkFile.isFile && apkFile.length() > 0) {
                 "Release APK was not produced: ${apkFile.path}"
             }
