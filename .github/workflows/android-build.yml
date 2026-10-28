@@ -40,42 +40,9 @@ on:
         required: false
         default: ''
         type: string
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/android-build.yml
-      - .gitmodules
-      - .npmrc
-      - app/**
-      - build.gradle.kts
-      - ci/distribution/**
-      - ci/script/download_android_dependencies.sh
-      - ci/script/prepare_android_dependencies.py
-      - cmake/**
-      - examples/**
-      - gradle/**
-      - gradle.properties
-      - gradlew
-      - gradlew.bat
-      - llm/**
-      - package.json
-      - package-lock.json
-      - npm-shrinkwrap.json
-      - pnpm-workspace.yaml
-      - quickjs/**
-      - settings.gradle.kts
-      - material-icons-subset/**
-      - tools/icons/**
-      - showerclient/**
-      - terminal/**
-      - terminal
-      - tools/native_ripgrep/**
-      - tools/packages_whitelist.txt
-      - tools/example_packages/sync_example_packages.py
-      - web-chat/**
 
 concurrency:
-  group: android-build-${{ github.event_name }}-${{ github.ref }}-${{ inputs.gradle_task }}
+  group: android-build-${{ github.ref }}-${{ inputs.gradle_task }}
   cancel-in-progress: true
 
 permissions:
@@ -92,7 +59,7 @@ env:
 
 jobs:
   build:
-    if: github.event_name != 'workflow_dispatch' || inputs.gradle_task != 'publishOfflineResources'
+    if: inputs.gradle_task != 'publishOfflineResources'
     name: Build Android artifacts
     runs-on: ubuntu-24.04
     timeout-minutes: 240
@@ -112,7 +79,7 @@ jobs:
           python-version: '3.12'
 
       - name: Validate distribution publishing inputs
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_release
+        if: inputs.publish_release
         env:
           DISPATCH_GRADLE_TASK: ${{ inputs.gradle_task }}
         shell: bash
@@ -122,7 +89,7 @@ jobs:
             exit 1
           fi
       - name: Validate migration completion inputs
-        if: github.event_name == 'workflow_dispatch' && inputs.complete_repository_migration
+        if: inputs.complete_repository_migration
         env:
           PUBLISH_RELEASE: ${{ inputs.publish_release }}
           DISPATCH_GRADLE_TASK: ${{ inputs.gradle_task }}
@@ -133,14 +100,14 @@ jobs:
             exit 1
           fi
       - name: Validate cross-repository release access
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_release
+        if: inputs.publish_release
         env:
           GH_TOKEN: ${{ secrets.OPERIT_DISTRIBUTION_TOKEN }}
         run: python3 ci/distribution/repositories/check_publish_access.py --mode release
       - name: Check distribution patch publishing
         run: python3 -m unittest discover -s ci/distribution/updates/tests -v
       - name: Migrate and verify historical distribution releases
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_release && inputs.complete_repository_migration
+        if: inputs.publish_release && inputs.complete_repository_migration
         env:
           GH_TOKEN: ${{ secrets.OPERIT_DISTRIBUTION_TOKEN }}
         run: python3 ci/distribution/repositories/migrate_releases.py --output .ci-repository-migration --apply
@@ -266,7 +233,7 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > local.properties
 
       - name: Prepare distribution signing
-        if: github.event_name == 'workflow_dispatch' && (inputs.gradle_task == ':app:verifyCiPreviewRelease' || inputs.gradle_task == ':app:bundleRelease')
+        if: inputs.gradle_task == ':app:verifyCiPreviewRelease' || inputs.gradle_task == ':app:bundleRelease'
         env:
           OPERIT_DISTRIBUTION_KEYSTORE_BASE64: ${{ secrets.OPERIT_DISTRIBUTION_KEYSTORE_BASE64 }}
         run: python3 ci/distribution/prepare_signing.py
@@ -274,21 +241,15 @@ jobs:
       - name: Run Gradle build
         env:
           DISPATCH_GRADLE_TASK: ${{ inputs.gradle_task }}
-          EVENT_NAME: ${{ github.event_name }}
           OPERIT_DISTRIBUTION_STORE_PASSWORD: ${{ secrets.OPERIT_DISTRIBUTION_STORE_PASSWORD }}
         shell: bash
         run: |
           set -euo pipefail
-          case "$EVENT_NAME" in
-            push) gradle_task=assembleDebug ;;
-            workflow_dispatch) gradle_task="$DISPATCH_GRADLE_TASK" ;;
-            *) echo "Unsupported workflow event: $EVENT_NAME" >&2; exit 2 ;;
-          esac
           chmod +x ./gradlew
-          ./gradlew "$gradle_task" --stacktrace --no-daemon
+          ./gradlew "$DISPATCH_GRADLE_TASK" --stacktrace --no-daemon
 
       - name: Verify external resource packaging and report APK size
-        if: github.event_name == 'push' || inputs.gradle_task != ':app:bundleRelease'
+        if: inputs.gradle_task != ':app:bundleRelease'
         run: python3 ci/distribution/resources/verify_packaged_resources.py
 
       - name: Upload Android reports
@@ -313,7 +274,7 @@ jobs:
           retention-days: 14
 
       - name: Publish distribution release and patch
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_release
+        if: inputs.publish_release
         env:
           GH_TOKEN: ${{ secrets.OPERIT_DISTRIBUTION_TOKEN }}
           PREVIOUS_TAG: ${{ inputs.previous_tag }}
@@ -328,7 +289,7 @@ jobs:
             --notes "$RELEASE_NOTES"
 
       - name: Complete verified repository migration
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_release && inputs.complete_repository_migration
+        if: inputs.publish_release && inputs.complete_repository_migration
         env:
           GH_TOKEN: ${{ secrets.OPERIT_DISTRIBUTION_TOKEN }}
         run: |
@@ -338,7 +299,7 @@ jobs:
             --commit "$GITHUB_SHA" \
             --apply
       - name: Upload distribution release and migration reports
-        if: always() && github.event_name == 'workflow_dispatch' && inputs.publish_release
+        if: always() && inputs.publish_release
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: operit-distribution-reports-${{ github.run_number }}
@@ -355,7 +316,7 @@ jobs:
           include-hidden-files: true
 
   resources:
-    if: github.event_name == 'workflow_dispatch' && inputs.gradle_task == 'publishOfflineResources'
+    if: inputs.gradle_task == 'publishOfflineResources'
     name: Publish fixed offline resources
     runs-on: ubuntu-24.04
     timeout-minutes: 45
