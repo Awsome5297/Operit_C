@@ -1,9 +1,17 @@
 package com.ai.assistance.operit.ui.features.conversation.chat.folders
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.window.PopupPositionProvider
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -12,9 +20,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.data.chat.folders.ChatFolder
@@ -25,26 +35,114 @@ import com.ai.assistance.operit.data.chat.folders.folderAncestors
 import com.ai.assistance.operit.data.model.ChatHistory
 import com.ai.assistance.operit.ui.features.conversation.chat.viewmodel.ChatHistoryDisplayMode
 
-internal data class HistoryAction(val label: String, val icon: ImageVector, val enabled: Boolean = true, val action: () -> Unit)
+internal data class HistoryAction(
+    val label: String,
+    val icon: ImageVector,
+    val enabled: Boolean = true,
+    val destructive: Boolean = false,
+    val action: () -> Unit,
+)
 internal data class HistoryBindingOption(val label: String, val binding: ChatFolderBinding)
 
+/**
+ * 紧凑浮层菜单，锚定在触发按钮旁，避免居中弹窗脱离点击位置。
+ * 删除类操作以错误色单独分隔。
+ */
 @Composable
-internal fun HistoryActionsDialog(title: String, actions: List<HistoryAction>, onDismiss: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = onDismiss, title = { Text(title) },
-        text = {
-            Column(Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp * 0.6f).dp)
-                .verticalScroll(rememberScrollState())) {
+internal fun HistoryActionsMenu(anchor: Rect, actions: List<HistoryAction>, onDismiss: () -> Unit) {
+    val density = LocalDensity.current
+    val positionProvider =
+        remember(anchor, density) {
+            object : PopupPositionProvider {
+                override fun calculatePosition(
+                    anchorBounds: IntRect,
+                    windowSize: IntSize,
+                    layoutDirection: LayoutDirection,
+                    popupContentSize: IntSize,
+                ): IntOffset {
+                    val margin = with(density) { 8.dp.roundToPx() }
+                    // 菜单左边缘接在触发按钮右侧；右侧空间不足时翻到按钮左侧。
+                    val maxX = (windowSize.width - popupContentSize.width - margin).coerceAtLeast(margin)
+                    val x =
+                        if (anchor.right + margin + popupContentSize.width <= windowSize.width - margin) {
+                            anchor.right + margin
+                        } else {
+                            (anchor.left - margin - popupContentSize.width).coerceIn(margin, maxX)
+                        }
+
+                    val spaceBelow = windowSize.height - anchor.bottom - margin
+                    val fitsBelow = spaceBelow >= popupContentSize.height
+                    val above = anchor.top - popupContentSize.height - margin
+                    val y =
+                        when {
+                            fitsBelow -> anchor.bottom + margin
+                            above >= margin -> above
+                            else -> (anchor.bottom + margin)
+                                .coerceAtMost(windowSize.height - popupContentSize.height - margin)
+                        }
+                    return IntOffset(x, y.coerceAtLeast(margin))
+                }
+            }
+        }
+
+    Popup(
+        popupPositionProvider = positionProvider,
+        onDismissRequest = onDismiss,
+        properties = PopupProperties(focusable = true, dismissOnBackPress = true, dismissOnClickOutside = true),
+    ) {
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            tonalElevation = 3.dp,
+            shadowElevation = 8.dp,
+            modifier = Modifier.width(240.dp),
+        ) {
+            Column(
+                modifier = Modifier
+                    .heightIn(max = 420.dp)
+                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 6.dp),
+            ) {
+                var separated = false
                 actions.forEach { option ->
-                    TextButton(onClick = option.action, enabled = option.enabled, modifier = Modifier.fillMaxWidth()) {
-                        Icon(option.icon, null, Modifier.size(20.dp))
+                    val isDestructive = option.destructive
+                    if (isDestructive && !separated) {
+                        separated = true
+                        HorizontalDivider(
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                            color = MaterialTheme.colorScheme.outlineVariant,
+                        )
+                    }
+                    val contentColor =
+                        when {
+                            !option.enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                            isDestructive -> MaterialTheme.colorScheme.error
+                            else -> MaterialTheme.colorScheme.onSurface
+                        }
+                    Row(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 6.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .clickable(enabled = option.enabled, onClick = option.action)
+                                .padding(horizontal = 10.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(option.icon, contentDescription = null, tint = contentColor, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(12.dp))
-                        Text(option.label, Modifier.weight(1f))
+                        Text(
+                            text = option.label,
+                            color = contentColor,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     }
                 }
             }
-        }, confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
-    )
+        }
+    }
 }
 
 @Composable

@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInRoot
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
@@ -57,10 +58,10 @@ internal fun FolderTreeList(
     rows: List<ChatFolderRow>, folders: Map<String, ChatFolder>, listState: LazyListState,
     currentId: String?, activeStreamingIds: Set<String>, allChats: List<ChatHistory>,
     draggingEnabled: Boolean, manualSort: Boolean, collapsedBindings: Set<String>,
-    onSelectChat: (String) -> Unit, onChatMenu: (ChatHistory) -> Unit,
+    onSelectChat: (String) -> Unit, onChatMenu: (ChatHistory, Rect) -> Unit,
     onEditChat: (ChatHistory) -> Unit, onDeleteChat: (ChatHistory) -> Unit,
-    onFolderMenu: (ChatFolderRow.Folder) -> Unit, onToggleFolder: (ChatFolderRow.Folder) -> Unit,
-    onToggleBinding: (String) -> Unit, onBindingCreate: (ChatFolderRow.Binding) -> Unit,
+    onFolderMenu: (ChatFolderRow.Folder, Rect) -> Unit, onToggleFolder: (ChatFolderRow.Folder) -> Unit,
+    onToggleBinding: (String) -> Unit, onBindingCreate: (ChatFolderRow.Binding, Rect) -> Unit,
     onHoverExpand: (ChatFolderRow.Folder) -> Unit, onMove: (ChatFolderMove) -> Unit,
     onInteractionChange: (Boolean) -> Unit, modifier: Modifier = Modifier,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
@@ -283,15 +284,25 @@ internal fun FolderTreeList(
                                         if (row.history.locked) Icon(Icons.Default.Lock, stringResource(R.string.lock_chat), Modifier.size(14.dp), tint = rowContentColor)
                                     }
                                 }
-                                if (!selectionMode) IconButton(
-                                    onClick = {
-                                        when (row) {
-                                            is ChatFolderRow.Chat -> onChatMenu(row.history)
-                                            is ChatFolderRow.Folder -> onFolderMenu(row)
-                                            is ChatFolderRow.Binding -> onBindingCreate(row)
-                                        }
-                                    }, enabled = !deleting, modifier = Modifier.size(30.dp),
-                                ) { Icon(Icons.Default.MoreVert, stringResource(R.string.folder_actions), Modifier.size(16.dp), tint = rowContentColor.copy(alpha = 0.75f)) }
+                                if (!selectionMode) {
+                                    // 菜单浮层以按钮自身位置为锚点，避免脱离触发位置弹到屏幕中央。
+                                    var menuAnchor by remember(row.key) { mutableStateOf<Rect?>(null) }
+                                    IconButton(
+                                        onClick = {
+                                            val anchor = menuAnchor
+                                                ?: return@IconButton
+                                            when (row) {
+                                                is ChatFolderRow.Chat -> onChatMenu(row.history, anchor)
+                                                is ChatFolderRow.Folder -> onFolderMenu(row, anchor)
+                                                is ChatFolderRow.Binding -> onBindingCreate(row, anchor)
+                                            }
+                                        },
+                                        enabled = !deleting,
+                                        modifier = Modifier
+                                            .size(30.dp)
+                                            .onGloballyPositioned { menuAnchor = it.boundsInWindow() },
+                                    ) { Icon(Icons.Default.MoreVert, stringResource(R.string.folder_actions), Modifier.size(16.dp), tint = rowContentColor.copy(alpha = 0.75f)) }
+                                }
                                 if (row.node() != null && draggingEnabled && !deleting) {
                                     var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
                                     val description = stringResource(R.string.drag_item, title)
