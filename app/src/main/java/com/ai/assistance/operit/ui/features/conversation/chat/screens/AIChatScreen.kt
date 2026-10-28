@@ -33,6 +33,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
 import com.ai.assistance.operit.ui.components.CustomScaffold
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -760,6 +761,7 @@ val actualViewModel: ChatViewModel = viewModel ?: viewModel { ChatViewModel(cont
     var exportErrorMessage by remember { mutableStateOf<String?>(null) }
     var webContentDir by remember { mutableStateOf<File?>(null) }
     var showCharacterSelector by remember { mutableStateOf(false) }
+    val characterRowAnchor = remember { mutableStateOf<Rect?>(null) }
 
     var bottomBarHeightPx by remember { mutableStateOf(0) }
     val bottomBarHeightDp = with(density) { bottomBarHeightPx.toDp() }
@@ -838,6 +840,7 @@ val actualViewModel: ChatViewModel = viewModel ?: viewModel { ChatViewModel(cont
                             bubbleAiBubbleWaterGlass = bubbleAiBubbleWaterGlass,
                             historyListState = historyListState,
                             showCharacterSelector = showCharacterSelector,
+                            characterRowAnchor = characterRowAnchor,
                             onShowCharacterSelectorChange = { showCharacterSelector = it },
                             onSwitchCharacter = onSwitchCharacter,
                             onOpenCharacterSettings = onNavigateToModelPrompts,
@@ -987,12 +990,15 @@ val actualViewModel: ChatViewModel = viewModel ?: viewModel { ChatViewModel(cont
                 }
 
                 if (!useMainSidebar) {
-                    CharacterSelectorPanel(
-                        isVisible = showCharacterSelector,
-                        onDismiss = { showCharacterSelector = false },
-                        onSelectCharacter = onSwitchCharacter,
-                        onOpenCharacterSettings = onNavigateToModelPrompts
-                    )
+                    val characterAnchor = characterRowAnchor.value
+                    if (showCharacterSelector && characterAnchor != null) {
+                        CharacterSelectorPanel(
+                            anchor = characterAnchor,
+                            onDismiss = { showCharacterSelector = false },
+                            onSelectCharacter = onSwitchCharacter,
+                            onOpenCharacterSettings = onNavigateToModelPrompts
+                        )
+                    }
 
                     AnimatedVisibility(
                         visible = showChatHistorySelector,

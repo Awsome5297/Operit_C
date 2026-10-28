@@ -11,8 +11,12 @@ import androidx.compose.material.icons.filled.PictureInPicture
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -41,6 +45,7 @@ fun ChatHeader(
         runningTaskCount: Int = 0,
         activeCharacterName: String,
         activeCharacterAvatarUri: String?,
+        characterRowAnchor: MutableState<Rect?>,
         onCharacterClick: () -> Unit
 ) {
         val displayCharacterName = activeCharacterName.toChatHeaderName()
@@ -151,6 +156,7 @@ fun ChatHeader(
                                 Modifier
                                         .widthIn(max = 176.dp)
                                         .clip(CircleShape)
+                                        .onGloballyPositioned { characterRowAnchor.value = it.boundsInWindow() }
                                         .clickable(onClick = onCharacterClick)
                                         .padding(horizontal = 8.dp, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,

@@ -12,6 +12,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,8 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import coil.compose.rememberAsyncImagePainter
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.data.model.ActivePrompt
@@ -115,8 +116,10 @@ fun ChatSidebarContent(
                     selected = selectedItem == NavItem.Workflow, detail = stringResource(R.string.sidebar_workflow_description),
                     onClick = { onNavItemClick(NavItem.Workflow) })
         }
+        var characterAnchor by remember { mutableStateOf<Rect?>(null) }
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp).height(44.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp).height(44.dp)
+                .onGloballyPositioned { characterAnchor = it.boundsInWindow() },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
@@ -191,15 +194,14 @@ fun ChatSidebarContent(
         Spacer(Modifier.height(4.dp))
         bottomContent()
     }
-    if (showCharacterSelector) {
-        Dialog(onDismissRequest = { showCharacterSelector = false }, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-            CharacterSelectorPanel(
-                isVisible = true,
-                onDismiss = { showCharacterSelector = false },
-                onSelectCharacter = onSelectCharacter,
-                onOpenCharacterSettings = { showCharacterSelector = false; onOpenCharacterSettings() },
-            )
-        }
+    val anchor = characterAnchor
+    if (showCharacterSelector && anchor != null) {
+        CharacterSelectorPanel(
+            anchor = anchor,
+            onDismiss = { showCharacterSelector = false },
+            onSelectCharacter = onSelectCharacter,
+            onOpenCharacterSettings = { showCharacterSelector = false; onOpenCharacterSettings() },
+        )
     }
 }
 

@@ -1,14 +1,6 @@
 package com.ai.assistance.operit.ui.features.conversation.chat.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,10 +16,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupPositionProvider
+import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,7 +75,7 @@ private fun applyCharacterSelectorSort(
 
 @Composable
 fun CharacterSelectorPanel(
-    isVisible: Boolean,
+    anchor: Rect,
     onDismiss: () -> Unit,
     onSelectCharacter: (CharacterSelectorTarget) -> Unit,
     onOpenCharacterSettings: () -> Unit
@@ -101,195 +100,153 @@ fun CharacterSelectorPanel(
         applyCharacterSelectorSort(allCards, sortOptionNameState.value)
     }
 
-    LaunchedEffect(isVisible) {
-        if (isVisible) {
-            allCards = characterCardManager.getAllCharacterCards()
-            allGroups = characterGroupCardManager.getAllCharacterGroupCards()
-        }
+    LaunchedEffect(Unit) {
+        allCards = characterCardManager.getAllCharacterCards()
+        allGroups = characterGroupCardManager.getAllCharacterGroupCards()
     }
 
-    AnimatedVisibility(
-        visible = isVisible,
-        enter = fadeIn(animationSpec = tween(200)),
-        exit = fadeOut(animationSpec = tween(200))
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures { onDismiss() }
+    val density = LocalDensity.current
+    val positionProvider =
+        remember(anchor, density) {
+            object : PopupPositionProvider {
+                override fun calculatePosition(
+                    anchorBounds: IntRect,
+                    windowSize: IntSize,
+                    layoutDirection: LayoutDirection,
+                    popupContentSize: IntSize,
+                ): IntOffset {
+                    val margin = with(density) { 8.dp.roundToPx() }
+                    val maxX = (windowSize.width - popupContentSize.width - margin).coerceAtLeast(margin)
+                    val x = anchor.left.coerceIn(margin, maxX)
+                    val below = anchor.bottom + margin
+                    val y =
+                        if (below + popupContentSize.height <= windowSize.height - margin) {
+                            below
+                        } else {
+                            (windowSize.height - popupContentSize.height - margin).coerceAtLeast(margin)
+                        }
+                    return IntOffset(x, y)
                 }
-                .background(Color.Black.copy(alpha = 0.4f))
-        ) {
-            AnimatedVisibility(
-                visible = isVisible,
-                enter = slideInVertically(
-                    initialOffsetY = { -it },
-                    animationSpec = tween(300, easing = androidx.compose.animation.core.EaseOutCubic)
-                ),
-                exit = slideOutVertically(
-                    targetOffsetY = { -it },
-                    animationSpec = tween(250, easing = androidx.compose.animation.core.EaseInCubic)
-                ),
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .fillMaxWidth()
-                    .padding(top = 60.dp, start = 20.dp, end = 20.dp)
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .shadow(
-                            elevation = 16.dp,
-                            shape = RoundedCornerShape(16.dp),
-                            spotColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
-                        )
-                        .clickable(enabled = false) {},
-                    color = MaterialTheme.colorScheme.surface
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        // 标题栏
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = context.getString(R.string.select_character),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-                            Text(
-                                text = context.getString(R.string.character_count, allCards.size + allGroups.size),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Box {
-                                IconButton(
-                                    onClick = { sortMenuExpanded = true },
-                                    modifier = Modifier.size(32.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Sort,
-                                        contentDescription = context.getString(R.string.character_card_sort),
-                                        modifier = Modifier.size(18.dp)
-                                    )
-                                }
+            }
+        }
 
-                                DropdownMenu(
-                                    expanded = sortMenuExpanded,
-                                    onDismissRequest = { sortMenuExpanded = false },
-                                    modifier = Modifier
-                                        .shadow(elevation = 12.dp, shape = RoundedCornerShape(12.dp))
-                                        .clip(RoundedCornerShape(12.dp))
-                                        .background(Color.White)
-                                ) {
-                                    DropdownMenuItem(
-                                        text = {
-                                            Text(
-                                                text = context.getString(R.string.character_card_sort_default),
-                                                color = Color(0xFF1F1F1F)
-                                            )
-                                        },
-                                        onClick = {
-                                            sortOptionNameState.value = CharacterSelectorSortOption.DEFAULT.name
-                                            sortMenuExpanded = false
-                                        }
-                                    )
-                                    DropdownMenuItem(
-                                        text = {
-                                            Text(
-                                                text = context.getString(R.string.character_card_sort_by_name),
-                                                color = Color(0xFF1F1F1F)
-                                            )
-                                        },
-                                        onClick = {
-                                            sortOptionNameState.value = CharacterSelectorSortOption.NAME_ASC.name
-                                            sortMenuExpanded = false
-                                        }
-                                    )
-                                    DropdownMenuItem(
-                                        text = {
-                                            Text(
-                                                text = context.getString(R.string.character_card_sort_by_created),
-                                                color = Color(0xFF1F1F1F)
-                                            )
-                                        },
-                                        onClick = {
-                                            sortOptionNameState.value = CharacterSelectorSortOption.CREATED_DESC.name
-                                            sortMenuExpanded = false
-                                        }
-                                    )
-                                }
+    Popup(
+        popupPositionProvider = positionProvider,
+        onDismissRequest = onDismiss,
+        properties = PopupProperties(focusable = true, dismissOnBackPress = true, dismissOnClickOutside = true),
+    ) {
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            tonalElevation = 3.dp,
+            shadowElevation = 8.dp,
+            modifier = Modifier.width(300.dp),
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(start = 4.dp, bottom = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = context.getString(R.string.select_character),
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = context.getString(R.string.character_count, allCards.size + allGroups.size),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Box {
+                        IconButton(onClick = { sortMenuExpanded = true }, modifier = Modifier.size(30.dp)) {
+                            Icon(
+                                imageVector = Icons.Default.Sort,
+                                contentDescription = context.getString(R.string.character_card_sort),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(17.dp),
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = sortMenuExpanded,
+                            onDismissRequest = { sortMenuExpanded = false },
+                        ) {
+                            listOf(
+                                CharacterSelectorSortOption.DEFAULT to R.string.character_card_sort_default,
+                                CharacterSelectorSortOption.NAME_ASC to R.string.character_card_sort_by_name,
+                                CharacterSelectorSortOption.CREATED_DESC to R.string.character_card_sort_by_created,
+                            ).forEach { (option, labelRes) ->
+                                DropdownMenuItem(
+                                    text = { Text(context.getString(labelRes)) },
+                                    onClick = {
+                                        sortOptionNameState.value = option.name
+                                        sortMenuExpanded = false
+                                    },
+                                )
                             }
-                            Spacer(modifier = Modifier.width(4.dp))
-                            IconButton(
+                        }
+                    }
+                    IconButton(
+                        onClick = {
+                            onOpenCharacterSettings()
+                            onDismiss()
+                        },
+                        modifier = Modifier.size(30.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = context.getString(R.string.edit_character_card),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(17.dp),
+                        )
+                    }
+                }
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                Spacer(modifier = Modifier.height(6.dp))
+
+                LazyColumn(
+                    modifier = Modifier.heightIn(max = 340.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    if (allGroups.isNotEmpty()) {
+                        item {
+                            Text(
+                                text = stringResource(R.string.character_groups),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
+                            )
+                        }
+                        items(allGroups, key = { it.id }) { group ->
+                            CharacterGroupItem(
+                                group = group,
+                                isSelected = group.id == activeGroupId,
                                 onClick = {
-                                    onOpenCharacterSettings()
+                                    onSelectCharacter(CharacterSelectorTarget.CharacterGroupTarget(group.id))
                                     onDismiss()
                                 },
-                                modifier = Modifier.size(32.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Edit,
-                                    contentDescription = context.getString(R.string.edit_character_card),
-                                    modifier = Modifier.size(18.dp)
-                                )
-                            }
+                            )
                         }
-                        
-                        // 角色列表
-                        LazyColumn(
-                            modifier = Modifier.heightIn(max = 320.dp),
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            if (allGroups.isNotEmpty()) {
-                                item {
-                                    Text(
-                                        text = stringResource(R.string.character_groups),
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
-                                    )
-                                }
-                                items(allGroups, key = { it.id }) { group ->
-                                    CharacterGroupItem(
-                                        group = group,
-                                        isSelected = group.id == activeGroupId,
-                                        onClick = {
-                                            onSelectCharacter(CharacterSelectorTarget.CharacterGroupTarget(group.id))
-                                            onDismiss()
-                                        }
-                                    )
-                                }
-                                item { Spacer(modifier = Modifier.height(4.dp)) }
-                            }
-                            item {
-                                Text(
-                                    text = stringResource(R.string.character_cards),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
-                                )
-                            }
-                            items(sortedCards, key = { it.id }) { card ->
-                                CharacterItem(
-                                    card = card,
-                                    isSelected = activeGroupId.isNullOrBlank() && card.id == activeCardId,
-                                    onClick = {
-                                        onSelectCharacter(CharacterSelectorTarget.CharacterCardTarget(card.id))
-                                        onDismiss()
-                                    }
-                                )
-                            }
-                        }
+                        item { Spacer(modifier = Modifier.height(4.dp)) }
+                    }
+                    item {
+                        Text(
+                            text = stringResource(R.string.character_cards),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
+                        )
+                    }
+                    items(sortedCards, key = { it.id }) { card ->
+                        CharacterItem(
+                            card = card,
+                            isSelected = activeGroupId.isNullOrBlank() && card.id == activeCardId,
+                            onClick = {
+                                onSelectCharacter(CharacterSelectorTarget.CharacterCardTarget(card.id))
+                                onDismiss()
+                            },
+                        )
                     }
                 }
             }
