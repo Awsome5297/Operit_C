@@ -79,6 +79,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.ui.features.conversation.chat.attachments.images.ChatImagePickerDialog
+import com.ai.assistance.operit.ui.features.conversation.chat.components.style.input.menuBottomPadding
 import com.ai.assistance.operit.core.tools.AIToolHandler
 import com.ai.assistance.operit.core.tools.packTool.PackageManager as ToolPackageManager
 import com.ai.assistance.operit.data.skill.SkillRepository
@@ -348,6 +349,7 @@ fun AttachmentSelectorPanel(
 @Composable
 fun AttachmentSelectorPopupPanel(
         visible: Boolean,
+        anchorTopInWindowPx: Float,
         containerColor: Color,
         onContinueGeneration: () -> Unit,
         continueGenerationEnabled: Boolean,
@@ -487,7 +489,7 @@ fun AttachmentSelectorPopupPanel(
                     color = containerColor,
                     shadowElevation = 4.dp,
                     modifier =
-                            Modifier.padding(bottom = 44.dp, end = 12.dp)
+                            Modifier.padding(end = 12.dp, bottom = menuBottomPadding(anchorTopInWindowPx))
                                     .width(200.dp)
                                     .heightIn(max = 420.dp)
                                     .clickable(

@@ -100,6 +100,8 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
@@ -114,6 +116,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.ui.common.icons.ProviderLogo
+import com.ai.assistance.operit.ui.features.conversation.chat.components.style.input.menuBottomPadding
 import com.ai.assistance.operit.api.chat.EnhancedAIService
 import com.ai.assistance.operit.api.chat.model.ThinkingQualityMapping
 import com.ai.assistance.operit.api.chat.model.ThinkingQualityMappingRegistry
@@ -681,7 +684,15 @@ fun AgentChatInputSection(
             modifier
         }
 
-    Surface(color = Color.Transparent, modifier = floatingContainerModifier) {
+    var inputAreaTopInWindow by remember { mutableStateOf(Float.NaN) }
+
+    Surface(
+        color = Color.Transparent,
+        modifier =
+            floatingContainerModifier.onGloballyPositioned { coordinates ->
+                inputAreaTopInWindow = coordinates.positionInWindow().y
+            }
+    ) {
         Column {
             replyToMessage?.let { message ->
                 Surface(
@@ -1419,6 +1430,7 @@ fun AgentChatInputSection(
 
             AgentModelSelectorPopup(
                 visible = showModelSelectorPopup.value,
+                anchorTopInWindowPx = inputAreaTopInWindow,
                 popupContainerColor = popupContainerColor,
                 configSummaries = configSummaries,
                 currentConfigMapping = effectiveConfigMapping,
@@ -1443,6 +1455,7 @@ fun AgentChatInputSection(
 
             AgentExtraSettingsPopup(
                 visible = showExtraSettingsPopup.value,
+                anchorTopInWindowPx = inputAreaTopInWindow,
                 actualViewModel = actualViewModel,
                 onContextUsageClick = {
                     showExtraSettingsPopup.value = false
@@ -1483,6 +1496,7 @@ fun AgentChatInputSection(
 
             AttachmentSelectorPopupPanel(
                 visible = showAttachmentPanel,
+                anchorTopInWindowPx = inputAreaTopInWindow,
                 containerColor = popupContainerColor,
                 onContinueGeneration = onContinueGeneration,
                 continueGenerationEnabled = continueGenerationEnabled && !isProcessing,
@@ -1520,6 +1534,7 @@ fun AgentChatInputSection(
 @Composable
 private fun AgentModelSelectorPopup(
     visible: Boolean,
+    anchorTopInWindowPx: Float,
     popupContainerColor: Color,
     configSummaries: List<ModelConfigSummary>,
     currentConfigMapping: FunctionConfigMapping,
@@ -1606,12 +1621,12 @@ private fun AgentModelSelectorPopup(
                         indication = null,
                         onClick = onDismiss,
                     ),
-            contentAlignment = Alignment.BottomEnd,
+            contentAlignment = Alignment.BottomStart,
         ) {
             Card(
                 modifier =
                     Modifier
-                        .padding(bottom = 44.dp, end = 12.dp)
+                        .padding(start = 12.dp, bottom = menuBottomPadding(anchorTopInWindowPx))
                         .width(300.dp)
                         .heightIn(max = 420.dp)
                         .clickable(
@@ -2036,6 +2051,7 @@ private fun AgentModelSelectorItem(
 @Composable
 private fun AgentExtraSettingsPopup(
     visible: Boolean,
+    anchorTopInWindowPx: Float,
     actualViewModel: ChatViewModel,
     onContextUsageClick: () -> Unit,
     popupContainerColor: Color,
@@ -2130,7 +2146,7 @@ private fun AgentExtraSettingsPopup(
             Card(
                 modifier =
                     Modifier
-                        .padding(bottom = 44.dp, end = 12.dp)
+                        .padding(end = 12.dp, bottom = menuBottomPadding(anchorTopInWindowPx))
                         .width(300.dp)
                         .heightIn(max = 420.dp)
                         .clickable(
