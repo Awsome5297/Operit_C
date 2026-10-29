@@ -43,7 +43,8 @@ class GitHubDirectOAuthService {
         scope: String,
         state: String,
     ): String =
-        okhttp3.HttpUrl.Companion.toHttpUrl("https://github.com/login/oauth/authorize")
+        okhttp3.HttpUrl.Builder().scheme("https").host("github.com")
+            .addPathSegment("login").addPathSegment("oauth").addPathSegment("authorize").build()
             .newBuilder()
             .addQueryParameter("client_id", clientId)
             .addQueryParameter("redirect_uri", redirectUri)

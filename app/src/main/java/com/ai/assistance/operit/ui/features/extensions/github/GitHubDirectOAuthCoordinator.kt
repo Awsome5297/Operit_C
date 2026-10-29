@@ -2,6 +2,7 @@ package com.ai.assistance.operit.ui.features.extensions.github
 
 import android.content.Context
 import android.net.Uri
+import com.ai.assistance.operit.BuildConfig
 import com.ai.assistance.operit.data.api.GitHubDirectOAuthService
 import com.ai.assistance.operit.data.api.GitHubApiService
 import com.ai.assistance.operit.data.preferences.GitHubAuthPreferences

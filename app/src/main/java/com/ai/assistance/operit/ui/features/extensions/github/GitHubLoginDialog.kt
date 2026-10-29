@@ -186,7 +186,7 @@ private fun GitHubEmbeddedLoginDialog(
     BrowserCallbackDialog(
         title = stringResource(R.string.login_github),
         authorizationUrl = activeTransaction.authorizationUrl,
-        completionRedirectUri = Uri.parse(activeTransaction.completionRedirectUri),
+        completionRedirectUri = Uri.parse(activeTransaction.redirectUri),
         expiresAt = activeTransaction.expiresAt,
         onCompletion = { completionUri ->
             scope.launch {
