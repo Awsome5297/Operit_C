@@ -495,7 +495,7 @@ fun AttachmentSelectorPopupPanel(
                     PopupProperties(
                             focusable = true,
                             dismissOnBackPress = true,
-                            dismissOnClickOutside = false
+                            dismissOnClickOutside = true
                     )
     ) {
         Surface(

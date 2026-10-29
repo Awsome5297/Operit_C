@@ -1623,7 +1623,9 @@ private fun AgentModelSelectorPopup(
             PopupProperties(
                 focusable = true,
                 dismissOnBackPress = true,
-                dismissOnClickOutside = false,
+                // Popup 窗口只有菜单本身大小，菜单外的点击靠系统派发给 onDismissRequest；
+                // 置 false 时外部点击无人接收，表现为点屏幕没反应。
+                dismissOnClickOutside = true,
             ),
     ) {
         Column(
@@ -2154,7 +2156,7 @@ private fun AgentExtraSettingsPopup(
             PopupProperties(
                 focusable = true,
                 dismissOnBackPress = true,
-                dismissOnClickOutside = false,
+                dismissOnClickOutside = true,
             ),
     ) {
         Column(
