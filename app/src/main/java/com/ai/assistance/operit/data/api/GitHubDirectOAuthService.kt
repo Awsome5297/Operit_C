@@ -91,8 +91,15 @@ class GitHubDirectOAuthService {
                     }
                     val token = payload.accessToken
                     if (token.isNullOrBlank()) {
+                        AppLogger.e(
+                            TAG,
+                            "GitHub token exchange returned no access_token; body=$responseBody",
+                        )
                         return@withContext Result.failure(
-                            IllegalStateException("GitHub token exchange response is missing access_token"),
+                            IllegalStateException(
+                                "GitHub 未返回 access_token（HTTP ${response.code}），返回体：$responseBody。" +
+                                    "常见原因：client_secret 不正确，或构建时未注入 OAuth 凭据。",
+                            ),
                         )
                     }
                     Result.success(
