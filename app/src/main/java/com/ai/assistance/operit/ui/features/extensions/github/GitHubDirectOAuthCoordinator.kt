@@ -87,15 +87,24 @@ class GitHubDirectOAuthCoordinator(context: Context) {
                     redirectUri = pending.redirectUri,
                     code = code,
                 ).getOrElse { error -> throw error }
-            val user = apiService.getCurrentUser().getOrElse { error -> throw error }
+            // 必须先落会话再取用户信息：getCurrentUser 从已保存的会话里读 token。
             githubAuth.saveAuthInfo(
                 accessToken = token.accessToken,
                 tokenType = token.tokenType,
                 expiresIn = token.expiresIn,
                 refreshToken = token.refreshToken,
-                userInfo = user,
+                userInfo = GitHubUser(
+                    id = 0,
+                    login = "",
+                    avatarUrl = "",
+                ),
                 grantedScope = token.scope,
             )
+            val user = apiService.getCurrentUser().getOrElse { error ->
+                githubAuth.logout()
+                throw error
+            }
+            githubAuth.updateUserInfo(user)
             githubAuth.clearDirectOAuthState()
             Result.success(user)
         } catch (e: Exception) {
