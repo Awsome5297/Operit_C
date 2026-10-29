@@ -73,12 +73,16 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.window.PopupPositionProvider
-import kotlin.math.roundToInt
+import androidx.compose.ui.window.PopupProperties
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.ui.features.conversation.chat.attachments.images.ChatImagePickerDialog
 import com.ai.assistance.operit.core.tools.AIToolHandler
@@ -350,7 +354,6 @@ fun AttachmentSelectorPanel(
 @Composable
 fun AttachmentSelectorPopupPanel(
         visible: Boolean,
-        anchorTopInWindowPx: Float,
         containerColor: Color,
         onContinueGeneration: () -> Unit,
         continueGenerationEnabled: Boolean,
@@ -465,17 +468,23 @@ fun AttachmentSelectorPopupPanel(
                     )
             )
 
-    // 弹层位置用锚点换算为相对父容器的偏移，父容器随输入法平移时菜单跟随，不与输入区错位。
+    // 弹层贴在输入区顶边上方：anchorBounds 是调用点父布局在窗口中的矩形，
+    // Popup 在锚点变化时会重新定位，输入法展开导致的平移不需要额外换算。
+    val popupMargin = with(LocalDensity.current) { 12.dp.roundToPx() }
     val attachmentPopupPosition =
-            remember(anchorTopInWindowPx) {
-                    PopupPositionProvider { _, _, _, popupContentSize ->
-                            val margin = with(this) { 12.dp.roundToPx() }
-                            val windowBottom = (anchorTopInWindowPx.roundToInt() - margin).coerceAtLeast(margin)
-                            val maxX = margin
-                            IntOffset(
-                                    maxX,
-                                    (windowBottom - popupContentSize.height).coerceAtLeast(margin),
-                            )
+            remember(popupMargin) {
+                    object : PopupPositionProvider {
+                            override fun calculatePosition(
+                                    anchorBounds: IntRect,
+                                    windowSize: IntSize,
+                                    layoutDirection: LayoutDirection,
+                                    popupContentSize: IntSize,
+                            ): IntOffset {
+                                    val y =
+                                            (anchorBounds.top - popupMargin - popupContentSize.height)
+                                                    .coerceAtLeast(popupMargin)
+                                    return IntOffset(popupMargin, y)
+                            }
                     }
             }
 

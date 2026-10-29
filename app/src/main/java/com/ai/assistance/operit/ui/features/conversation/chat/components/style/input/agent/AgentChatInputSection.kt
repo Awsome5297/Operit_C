@@ -69,7 +69,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -101,8 +100,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
@@ -111,9 +109,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.ui.common.icons.ProviderLogo
@@ -684,26 +687,9 @@ fun AgentChatInputSection(
             modifier
         }
 
-    // 菜单锚点只在打开菜单的瞬间采样一次：输入法动画期间位置每帧变化，
-    // 常驻监听会把动画帧同步成状态写入，导致整段输入区反复重组而卡顿。
-    val inputAnchor = remember { mutableFloatStateOf(Float.NaN) }
-    val wantsInputAnchor =
-        showModelSelectorPopup.value || showExtraSettingsPopup.value || showAttachmentPanel
-    // 普通变量不参与快照系统：写入它不会触发重组，避免监听本身成为重组来源。
-    val captureState = remember { AnchorCapture() }
-    LaunchedEffect(wantsInputAnchor) {
-        if (!wantsInputAnchor) captureState.captured = false
-    }
-
     Surface(
         color = Color.Transparent,
-        modifier =
-            floatingContainerModifier.onGloballyPositioned { coordinates ->
-                if (wantsInputAnchor && !captureState.captured) {
-                    captureState.captured = true
-                    inputAnchor.floatValue = coordinates.positionInWindow().y
-                }
-            }
+        modifier = floatingContainerModifier
     ) {
         Column {
             replyToMessage?.let { message ->
@@ -1442,7 +1428,6 @@ fun AgentChatInputSection(
 
             AgentModelSelectorPopup(
                 visible = showModelSelectorPopup.value,
-                anchorTopInWindowPx = inputAnchor.floatValue,
                 popupContainerColor = popupContainerColor,
                 configSummaries = configSummaries,
                 currentConfigMapping = effectiveConfigMapping,
@@ -1467,7 +1452,6 @@ fun AgentChatInputSection(
 
             AgentExtraSettingsPopup(
                 visible = showExtraSettingsPopup.value,
-                anchorTopInWindowPx = inputAnchor.floatValue,
                 actualViewModel = actualViewModel,
                 onContextUsageClick = {
                     showExtraSettingsPopup.value = false
@@ -1508,7 +1492,6 @@ fun AgentChatInputSection(
 
             AttachmentSelectorPopupPanel(
                 visible = showAttachmentPanel,
-                anchorTopInWindowPx = inputAnchor.floatValue,
                 containerColor = popupContainerColor,
                 onContinueGeneration = onContinueGeneration,
                 continueGenerationEnabled = continueGenerationEnabled && !isProcessing,
@@ -1543,14 +1526,9 @@ fun AgentChatInputSection(
     }
 }
 
-private class AnchorCapture {
-    var captured: Boolean = false
-}
-
 @Composable
 private fun AgentModelSelectorPopup(
     visible: Boolean,
-    anchorTopInWindowPx: Float,
     popupContainerColor: Color,
     configSummaries: List<ModelConfigSummary>,
     currentConfigMapping: FunctionConfigMapping,
@@ -1618,16 +1596,23 @@ private fun AgentModelSelectorPopup(
         }
     }
 
-    // 弹层用 anchorBounds（父容器在窗口中的位置）换算相对偏移：
-    // 父容器随输入法平移时，相对坐标天然跟随，不会出现位置错乱。
+    // 弹层贴在输入区顶边上方：anchorBounds 是调用点父布局在窗口中的矩形，Popup 在锚点变化时会重新定位，
+    // 输入法展开导致的平移不再需要额外换算。
+    val popupMargin = with(LocalDensity.current) { 8.dp.roundToPx() }
     val modelPopupPosition =
-        remember(anchorTopInWindowPx) {
-            PopupPositionProvider { _, windowSize, _, popupContentSize ->
-                val margin = with(this) { 8.dp.roundToPx() }
-                val windowBottom = (anchorTopInWindowPx.roundToInt() - margin).coerceAtLeast(margin)
-                val x = margin
-                val y = (windowBottom - popupContentSize.height).coerceAtLeast(margin)
-                IntOffset(x, y)
+        remember(popupMargin) {
+            object : PopupPositionProvider {
+                override fun calculatePosition(
+                    anchorBounds: IntRect,
+                    windowSize: IntSize,
+                    layoutDirection: LayoutDirection,
+                    popupContentSize: IntSize,
+                ): IntOffset {
+                    val y =
+                        (anchorBounds.top - popupMargin - popupContentSize.height)
+                            .coerceAtLeast(popupMargin)
+                    return IntOffset(popupMargin, y)
+                }
             }
         }
 
@@ -2071,7 +2056,6 @@ private fun AgentModelSelectorItem(
 @Composable
 private fun AgentExtraSettingsPopup(
     visible: Boolean,
-    anchorTopInWindowPx: Float,
     actualViewModel: ChatViewModel,
     onContextUsageClick: () -> Unit,
     popupContainerColor: Color,
@@ -2112,6 +2096,7 @@ private fun AgentExtraSettingsPopup(
     var showToolPromptManagerDialog by remember { mutableStateOf(false) }
     var infoPopupContent by remember { mutableStateOf<Pair<String, String>?>(null) }
     val context = LocalContext.current
+    val popupMargin = with(LocalDensity.current) { 8.dp.roundToPx() }
     val inputMenuToggles = InputMenuTogglePluginRegistry.changeVersion.collectAsState().value.let {
         InputMenuTogglePluginRegistry.createToggles(
             params = InputMenuToggleHookParams(
@@ -2143,14 +2128,22 @@ private fun AgentExtraSettingsPopup(
     }
 
     val extraPopupPosition =
-        remember(anchorTopInWindowPx) {
-            PopupPositionProvider { _, windowSize, _, popupContentSize ->
-                val margin = with(this) { 8.dp.roundToPx() }
-                val windowBottom = (anchorTopInWindowPx.roundToInt() - margin).coerceAtLeast(margin)
-                val maxX = (windowSize.width - popupContentSize.width - margin).coerceAtLeast(margin)
-                val x = maxX
-                val y = (windowBottom - popupContentSize.height).coerceAtLeast(margin)
-                IntOffset(x, y)
+        remember(popupMargin) {
+            object : PopupPositionProvider {
+                override fun calculatePosition(
+                    anchorBounds: IntRect,
+                    windowSize: IntSize,
+                    layoutDirection: LayoutDirection,
+                    popupContentSize: IntSize,
+                ): IntOffset {
+                    val x =
+                        (windowSize.width - popupContentSize.width - popupMargin)
+                            .coerceAtLeast(popupMargin)
+                    val y =
+                        (anchorBounds.top - popupMargin - popupContentSize.height)
+                            .coerceAtLeast(popupMargin)
+                    return IntOffset(x, y)
+                }
             }
         }
 
