@@ -91,7 +91,7 @@ class GitHubDirectOAuthCoordinator(context: Context) {
             githubAuth.saveAuthInfo(
                 accessToken = token.accessToken,
                 tokenType = token.tokenType,
-                expiresIn = null,
+                expiresIn = token.expiresIn,
                 refreshToken = token.refreshToken,
                 userInfo = user,
                 grantedScope = token.scope,

@@ -4,6 +4,7 @@ import com.ai.assistance.operit.util.logging.AppLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -22,6 +23,7 @@ class GitHubDirectOAuthService {
         val tokenType: String,
         val scope: String,
         val refreshToken: String?,
+        val expiresIn: Long?,
     )
 
     private val client =
@@ -111,6 +113,7 @@ class GitHubDirectOAuthService {
                             tokenType = payload.tokenType ?: "bearer",
                             scope = payload.scope.orEmpty(),
                             refreshToken = payload.refreshToken,
+                            expiresIn = payload.expiresIn,
                         ),
                     )
                 }
@@ -122,12 +125,15 @@ class GitHubDirectOAuthService {
 
     @Serializable
     private data class TokenExchangePayload(
-        val accessToken: String? = null,
-        val tokenType: String? = null,
+        // GitHub 返回下划线命名，必须显式映射，否则全部解析为 null。
+        @SerialName("access_token") val accessToken: String? = null,
+        @SerialName("token_type") val tokenType: String? = null,
         val scope: String? = null,
-        val refreshToken: String? = null,
+        @SerialName("refresh_token") val refreshToken: String? = null,
+        @SerialName("expires_in") val expiresIn: Long? = null,
+        @SerialName("refresh_token_expires_in") val refreshTokenExpiresIn: Long? = null,
         val error: String? = null,
-        val errorDescription: String? = null,
+        @SerialName("error_description") val errorDescription: String? = null,
     )
 
     companion object {
