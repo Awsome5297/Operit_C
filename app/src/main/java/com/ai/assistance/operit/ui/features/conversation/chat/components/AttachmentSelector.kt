@@ -77,9 +77,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import androidx.compose.ui.window.PopupPositionProvider
+import kotlin.math.roundToInt
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.ui.features.conversation.chat.attachments.images.ChatImagePickerDialog
-import com.ai.assistance.operit.ui.features.conversation.chat.components.style.input.menuBottomPadding
 import com.ai.assistance.operit.core.tools.AIToolHandler
 import com.ai.assistance.operit.core.tools.packTool.PackageManager as ToolPackageManager
 import com.ai.assistance.operit.data.skill.SkillRepository
@@ -464,8 +465,22 @@ fun AttachmentSelectorPopupPanel(
                     )
             )
 
+    // 弹层位置用锚点换算为相对父容器的偏移，父容器随输入法平移时菜单跟随，不与输入区错位。
+    val attachmentPopupPosition =
+            remember(anchorTopInWindowPx) {
+                    PopupPositionProvider { _, _, _, popupContentSize ->
+                            val margin = with(this) { 12.dp.roundToPx() }
+                            val windowBottom = (anchorTopInWindowPx.roundToInt() - margin).coerceAtLeast(margin)
+                            val maxX = margin
+                            IntOffset(
+                                    maxX,
+                                    (windowBottom - popupContentSize.height).coerceAtLeast(margin),
+                            )
+                    }
+            }
+
     Popup(
-            alignment = Alignment.TopStart,
+            popupPositionProvider = attachmentPopupPosition,
             onDismissRequest = onDismiss,
             properties =
                     PopupProperties(
@@ -474,30 +489,20 @@ fun AttachmentSelectorPopupPanel(
                             dismissOnClickOutside = false
                     )
     ) {
-        Box(
+        Surface(
+                shape = RoundedCornerShape(8.dp),
+                color = containerColor,
+                shadowElevation = 4.dp,
                 modifier =
-                        Modifier.fillMaxSize()
+                        Modifier
+                                .width(200.dp)
+                                .heightIn(max = 420.dp)
                                 .clickable(
                                         interactionSource = remember { MutableInteractionSource() },
                                         indication = null,
-                                        onClick = onDismiss
-                                ),
-                contentAlignment = Alignment.BottomEnd
+                                        onClick = {}
+                                )
         ) {
-            Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = containerColor,
-                    shadowElevation = 4.dp,
-                    modifier =
-                            Modifier.padding(end = 12.dp, bottom = menuBottomPadding(anchorTopInWindowPx))
-                                    .width(200.dp)
-                                    .heightIn(max = 420.dp)
-                                    .clickable(
-                                            interactionSource = remember { MutableInteractionSource() },
-                                            indication = null,
-                                            onClick = {}
-                                    )
-            ) {
                 Column(
                         modifier =
                                 Modifier.fillMaxWidth()
@@ -530,7 +535,6 @@ fun AttachmentSelectorPopupPanel(
                     }
                 }
             }
-        }
     }
 
     if (showImagePicker) {

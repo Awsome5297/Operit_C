@@ -117,7 +117,6 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.ai.assistance.operit.R
 import com.ai.assistance.operit.ui.common.icons.ProviderLogo
-import com.ai.assistance.operit.ui.features.conversation.chat.components.style.input.menuBottomPadding
 import com.ai.assistance.operit.api.chat.EnhancedAIService
 import com.ai.assistance.operit.api.chat.model.ThinkingQualityMapping
 import com.ai.assistance.operit.api.chat.model.ThinkingQualityMappingRegistry
@@ -1619,8 +1618,21 @@ private fun AgentModelSelectorPopup(
         }
     }
 
+    // 弹层用 anchorBounds（父容器在窗口中的位置）换算相对偏移：
+    // 父容器随输入法平移时，相对坐标天然跟随，不会出现位置错乱。
+    val modelPopupPosition =
+        remember(anchorTopInWindowPx) {
+            PopupPositionProvider { _, windowSize, _, popupContentSize ->
+                val margin = with(this) { 8.dp.roundToPx() }
+                val windowBottom = (anchorTopInWindowPx.roundToInt() - margin).coerceAtLeast(margin)
+                val x = margin
+                val y = (windowBottom - popupContentSize.height).coerceAtLeast(margin)
+                IntOffset(x, y)
+            }
+        }
+
     Popup(
-        alignment = Alignment.TopStart,
+        popupPositionProvider = modelPopupPosition,
         onDismissRequest = onDismiss,
         properties =
             PopupProperties(
@@ -1629,28 +1641,19 @@ private fun AgentModelSelectorPopup(
                 dismissOnClickOutside = false,
             ),
     ) {
-        Box(
+        Column(
             modifier =
                 Modifier
-                    .fillMaxSize()
+                    .width(300.dp)
+                    .heightIn(max = 420.dp)
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
-                        onClick = onDismiss,
+                        onClick = {},
                     ),
-            contentAlignment = Alignment.BottomStart,
         ) {
             Card(
-                modifier =
-                    Modifier
-                        .padding(start = 12.dp, bottom = menuBottomPadding(anchorTopInWindowPx))
-                        .width(300.dp)
-                        .heightIn(max = 420.dp)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
-                            onClick = {},
-                        ),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 colors =
                     CardDefaults.cardColors(
@@ -2139,8 +2142,20 @@ private fun AgentExtraSettingsPopup(
         )
     }
 
+    val extraPopupPosition =
+        remember(anchorTopInWindowPx) {
+            PopupPositionProvider { _, windowSize, _, popupContentSize ->
+                val margin = with(this) { 8.dp.roundToPx() }
+                val windowBottom = (anchorTopInWindowPx.roundToInt() - margin).coerceAtLeast(margin)
+                val maxX = (windowSize.width - popupContentSize.width - margin).coerceAtLeast(margin)
+                val x = maxX
+                val y = (windowBottom - popupContentSize.height).coerceAtLeast(margin)
+                IntOffset(x, y)
+            }
+        }
+
     Popup(
-        alignment = Alignment.TopStart,
+        popupPositionProvider = extraPopupPosition,
         onDismissRequest = onDismiss,
         properties =
             PopupProperties(
@@ -2149,28 +2164,19 @@ private fun AgentExtraSettingsPopup(
                 dismissOnClickOutside = false,
             ),
     ) {
-        Box(
+        Column(
             modifier =
                 Modifier
-                    .fillMaxSize()
+                    .width(300.dp)
+                    .heightIn(max = 420.dp)
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
-                        onClick = onDismiss,
+                        onClick = {},
                     ),
-            contentAlignment = Alignment.BottomEnd,
         ) {
             Card(
-                modifier =
-                    Modifier
-                        .padding(end = 12.dp, bottom = menuBottomPadding(anchorTopInWindowPx))
-                        .width(300.dp)
-                        .heightIn(max = 420.dp)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
-                            onClick = {},
-                        ),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 colors =
                     CardDefaults.cardColors(
