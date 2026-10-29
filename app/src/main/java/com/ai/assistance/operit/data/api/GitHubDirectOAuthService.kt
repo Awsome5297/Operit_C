@@ -75,13 +75,16 @@ class GitHubDirectOAuthService {
                         .post(body)
                         .build()
                 client.newCall(request).execute().use { response ->
-                    val responseBody = response.body?.string()
-                    if (!response.isSuccessful || responseBody == null) {
-                        return@withContext Result.failure(
-                            IllegalStateException("GitHub token exchange failed: HTTP ${response.code}"),
-                        )
-                    }
-                    val payload = json.decodeFromString<TokenExchangePayload>(responseBody)
+                    val responseBody = response.body?.string().orEmpty()
+                    // JSON 解析失败时保留原文，便于从错误信息直接看出 GitHub 实际返回了什么。
+                    val payload =
+                        runCatching { json.decodeFromString<TokenExchangePayload>(responseBody) }
+                            .getOrElse { return@withContext Result.failure(
+                                IllegalStateException(
+                                    "GitHub 返回了无法解析的响应（HTTP ${response.code}）：$responseBody",
+                                    it,
+                                ),
+                            ) }
                     payload.error?.let { error ->
                         return@withContext Result.failure(
                             IllegalStateException(

@@ -39,6 +39,11 @@ val githubOAuthClientId =
 val githubOAuthClientSecret =
     providers.environmentVariable("OPERIT_OAUTH_CLIENT_SECRET").orNull
         ?: localProperties.getProperty("OPERIT_OAUTH_CLIENT_SECRET").orEmpty()
+if (githubOAuthClientId.isBlank() || githubOAuthClientSecret.isBlank()) {
+    logger.warn("OPERIT_OAUTH_CLIENT_ID/SECRET 未配置：GitHub 直连登录将在运行时提示未配置")
+} else {
+    logger.lifecycle("GitHub OAuth 凭据已注入（client_id=${githubOAuthClientId.take(8)}...）")
+}
 
 data class SttModelAsset(
     val targetPath: String,
